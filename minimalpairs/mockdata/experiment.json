@@ -1,0 +1,135 @@
+{
+    "experiment": "mockdata",
+    "conceptToFeatures": {
+       "color": [
+            "red",
+            "blue",
+            "black"
+        ],
+        "shape": [
+            "oval",
+            "pentagon",
+            "rectangle"
+        ],
+        "contiguous": [
+            "contiguous",
+            "noncontiguous"
+        ]
+    },
+    "classes": {
+        "blob": {
+            "classname": "blob",
+            "conceptsToFeatures": {
+                "shape": ["oval"],
+                "contiguous": ["contiguous"]
+            }
+        },
+        "pile": {
+            "classname": "pile",
+            "conceptsToFeatures": {
+                "shape": ["pentagon", "rectangle"],
+                "contiguous": ["noncontiguous"]
+            }
+        }
+    },
+    "basics": [
+        "1.png",
+        "2.png"
+    ],
+    "minimalpairs": {
+        "1.png": ["3.png", "5.png", "7.png"],
+        "2.png": ["4.png"]
+    },
+    "images": {
+        "1.png": {
+             "image": "1.png",
+             "classname": "blob",
+             "concepts": {
+                 "color": "red",
+                 "shape": "oval",
+                 "contiguous": "contiguous"
+             },
+             "predictions": {
+                 "clip": {
+                     "blob": 0.9,
+                     "pile": 0.1
+                 }
+             }
+        },
+        "2.png": {
+            "image": "2.png",
+            "classname": "pile",
+            "concepts": {
+                "color": "red",
+                "shape": "rectangle",
+                "contiguous": "noncontiguous"
+            },
+            "predictions": {
+                "clip": {
+                    "blob": 0.3,
+                    "pile": 0.7
+                }
+            }
+       }, 
+       "3.png": {
+        "image": "3.png",
+        "classname": "blob",
+        "concepts": {
+            "color": "red",
+            "shape": "rectangle",
+            "contiguous": "contiguous"
+        },
+        "predictions": {
+            "clip": {
+                "blob": 0.5,
+                "pile": 0.5
+            }
+        }
+       }, 
+       "4.png": {
+        "image": "4.png",
+        "classname": "pile",
+        "concepts": {
+            "color": "red",
+            "shape": "rectangle",
+            "contiguous": "contiguous"
+        },
+        "predictions": {
+            "clip": {
+                "blob": 0.5,
+                "pile": 0.5
+            }
+        }
+       },
+       "5.png": {
+            "image": "5.png",
+            "classname": "pile",
+            "concepts": {
+                "color": "red",
+                "shape": "oval",
+                "contiguous": "noncontiguous"
+            },
+            "predictions": {
+                "clip": {
+                    "blob": 0.4,
+                    "pile": 0.6
+                }
+            }
+       },
+       "7.png": {
+        "image": "7.png",
+        "classname": "pile",
+        "concepts": {
+            "color": "blue",
+            "shape": "oval",
+            "contiguous": "contiguous"
+        },
+        "predictions": {
+            "clip": {
+                "blob": 0.8,
+                "pile": 0.2
+            }
+        }
+       }
+    }
+}
