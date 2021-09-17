@@ -31,6 +31,7 @@ const EXPERIMENTS = [
         imageA: UNSET,
         // Secondary (right) image that serves as a minimal difference.
         imageB: UNSET,
+        imageC: UNSET,
       };
       this.experiments = EXPERIMENTS;
 
@@ -38,8 +39,9 @@ const EXPERIMENTS = [
       this.updateClassname = this.updateClassname.bind(this);
       this.updateImageA = this.updateImageA.bind(this);
       this.updateImageB = this.updateImageB.bind(this);
-      this.onDeltaHover = this.onDeltaHover.bind(this)
-      this._update = this._update.bind(this);
+      this.onDeltaHover = this.onDeltaHover.bind(this);
+      // this.onDeltaUnhover = this.onDeltaUnhover.bind(this);
+      // this._update = this._update.bind(this);
     }
 
     componentDidMount() {
@@ -65,27 +67,42 @@ const EXPERIMENTS = [
         }
       )
     }
-    _update(event, property) {
-      const name = event.target.name;
-      this.setState(
-            {
-              [property]: name
-            }
-      )
-    }
     updateImageA(event) {
-      this._update(event, "imageA")
+      const name = event.target.name;
+      if (this.state.imageB == name) {
+        // Swap.
+        this.setState({
+          "imageA": name,
+          "imageB": this.state.imageA
+        })
+      } else {
+        this.setState({
+          "imageA": name,
+        })
+      }
     }
     updateImageB(event) {
-      this._update(event, "imageB")
+      const name = event.target.name;
+      if (this.state.imageA == name) {
+        // Swap.
+        this.setState({
+          "imageB": name,
+          "imageA": this.state.imageB
+        })
+      } else {
+        this.setState({
+          "imageB": name,
+        })
+      }    
     }
     onDeltaHover(event) {
       const pointIndex = event.points[0].pointIndex;
-      const imageB = event.points[0].data.images[pointIndex];
+      const imageC = event.points[0].data.images[pointIndex];
       this.setState({
-        imageB: imageB
+        imageC: imageC
       })
     }
+
     loadExperiment(experiment) {
       d3.json(`${experiment}/experiment.json`).then(
         (data) => {
@@ -99,7 +116,8 @@ const EXPERIMENTS = [
               minimalpairs: data["minimalpairs"],
               classname: UNSET,
               imageA: data["basics"][0],
-              imageB: data["minimalpairs"][data["basics"][0]][0],
+              imageB: data["basics"][1], // data["minimalpairs"][data["basics"][0]][0],
+              imageC: UNSET
             }
           )
         }
@@ -120,35 +138,47 @@ const EXPERIMENTS = [
           >{experiment}</a>
         )
       );
-      const classes = this.state.classes.map(
-        (classname) => (
-          <a
-            className={this.state.classname == classname ? "dropdown-item active" : "dropdown-item"}
-            key={classname}
-            name={classname}
-            onClick={this.updateClassname}
-            checked={this.state.classname == classname}
-            aria-pressed={this.state.classname == classname}
-          >{classname}</a>
-        )
-      );
-      const _basics = (this.state.classname == UNSET) ? this.state.basics : this.state.basics.filter(
-        (imgname) => (
-          this.state.images[imgname].classname == this.state.classname
-        )
-      )
-      const basics = _basics.map(
-        (imgname) => (
-          <a
-            className={this.state.imgname == imgname ? "dropdown-item active" : "dropdown-item"}
-            key={imgname}
-            name={imgname}
-            onClick={this.updateImageA}
-            checked={this.state.imageA == imgname}
-            aria-pressed={this.state.imageA == imgname}
-          >{imgname}</a>
-        )
-      );
+      // const classes = this.state.classes.map(
+      //   (classname) => (
+      //     <a
+      //       className={this.state.classname == classname ? "dropdown-item active" : "dropdown-item"}
+      //       key={classname}
+      //       name={classname}
+      //       onClick={this.updateClassname}
+      //       checked={this.state.classname == classname}
+      //       aria-pressed={this.state.classname == classname}
+      //     >{classname}</a>
+      //   )
+      // );
+      // const _basics = (this.state.classname == UNSET) ? this.state.basics : this.state.basics.filter(
+      //   (imgname) => (
+      //     this.state.images[imgname].classname == this.state.classname
+      //   )
+      // )
+      // const basicsA = this.state.basics.map(
+      //   (imgname) => (
+      //     <a
+      //       className={this.state.imgname == imgname ? "dropdown-item active" : "dropdown-item"}
+      //       key={imgname}
+      //       name={imgname}
+      //       onClick={this.updateImageA}
+      //       checked={this.state.imageA == imgname}
+      //       aria-pressed={this.state.imageA == imgname}
+      //     >{imgname}</a>
+      //   )
+      // );
+      // const basicsB = this.state.basics.map(
+      //   (imgname) => (
+      //     <a
+      //       className={this.state.imgname == imgname ? "dropdown-item active" : "dropdown-item"}
+      //       key={imgname}
+      //       name={imgname}
+      //       onClick={this.updateImageB}
+      //       checked={this.state.imageB == imgname}
+      //       aria-pressed={this.state.imageB == imgname}
+      //     >{imgname}</a>
+      //   )
+      // );
 
       const experimentCard = (
         <div>
@@ -184,24 +214,13 @@ const EXPERIMENTS = [
       //     </div>
       //   </div>
       // );
-      const basicsCard = (
-        <div>
-          <div className="card-body">
-            <p className="card-text">
-              Select the image.
-            </p>
-            <div className="dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.state.imageA}
-              </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {basics}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      const basicsCardA = (<ImageMenu image={this.state.imageA} images={this.state.basics} update={this.state.updateImageA} />)
+      const basicsCardB = (<ImageMenu image={this.state.imageB} images={this.state.basics} update={this.state.updateImageB} />)
+ 
       const imageASelected = this.state.imageA != UNSET;
+      const imageBSelected = this.state.imageB != UNSET;
+      const imageCSelected = this.state.imageC != UNSET;
+    
       // const imageACard = !imageASelected ? null : (
       //   <div className="card-body">
       //       <p className="card-text">
@@ -210,9 +229,9 @@ const EXPERIMENTS = [
       //       {Img(this.state.imageA, this.state.experiment)}
       //   </div>
       // )
-      const imageACard = !imageASelected ? null : (
+      const imageACard = imageASelected ?  (
         <ImgCard
-        title="Base Image"
+        title="Image (A)"
           classes={this.state.classes}
           predictions={this.state.classes.map(
             classname => this.state.images[this.state.imageA].predictions["clip"][classname]
@@ -220,11 +239,11 @@ const EXPERIMENTS = [
           info={this.state.images[this.state.imageA]}
           experiment={this.state.experiment}
         />
-      )
+      ) : null;
 
-      const imageBCard = !imageASelected ? null : (
+      const imageBCard = imageBSelected ? (
         <ImgCard
-          title="Counterfactual"
+          title="Image (B)"
           classes={this.state.classes}
           predictions={this.state.classes.map(
             classname => this.state.images[this.state.imageB].predictions["clip"][classname]
@@ -232,7 +251,19 @@ const EXPERIMENTS = [
           info={this.state.images[this.state.imageB]}
           experiment={this.state.experiment}
         />
-      )
+      ) : null;
+
+      const imageCCard = imageCSelected ? (
+        <ImgCard
+          title="Image (Counterfactual)"
+          classes={this.state.classes}
+          predictions={this.state.classes.map(
+            classname => this.state.images[this.state.imageC].predictions["clip"][classname]
+          )}
+          info={this.state.images[this.state.imageC]}
+          experiment={this.state.experiment}
+        />
+      ) : null;
 
       // const imageBCard = this.state.imageB == UNSET ? null : (
       //   <div className="card-body">
@@ -276,6 +307,44 @@ const EXPERIMENTS = [
         annotations = deltas.map(delta => delta["annotation"]);
       }
 
+      const APlotCard = !imageASelected ? null : (
+        <div className="card-body">
+            <Plot
+            data={[
+              {
+                x: y,
+                y: x,
+                type: 'bar',
+                mode: 'relative',
+                orientation: 'h',
+                images: this.state.minimalpairs[this.state.imageA],
+                marker: {
+                  color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50") // blue if positive, red if negative.
+                },
+                text: annotations,
+                hoverinfo: "text"
+              },
+            ]}
+            layout={{width: 550, height: 350, title: `Pr(${this.state.images[this.state.imageA].classname} | counterfactual(A)) - Pr(${this.state.images[this.state.imageA].classname} |  A) `, margin: {
+              l: 175,
+              r: 75
+            }}}
+            // onHover={this.onDeltaHover}
+          />
+          </div>
+      )
+        
+      // Move plots into a component
+      deltas = []; x = []; y = []; annotations = [];
+      if (imageASelected) {
+        // let dictionary = data.reduce((a,x) => ({...a, [x.id]: x.country}), {})
+        deltas = this.state.minimalpairs[this.state.imageA].map(
+          imageB => deltaProbabilityToPair(this.state.images[this.state.imageA], this.state.images[imageB])
+        );
+        x = deltas.map(delta => delta["x"]);
+        y = deltas.map(delta => delta["delta"]);
+        annotations = deltas.map(delta => delta["annotation"]);
+      }
       const deltaPlotCard = !imageASelected ? null : (
         <div className="card-body">
             <Plot
@@ -294,11 +363,12 @@ const EXPERIMENTS = [
                 hoverinfo: "text"
               },
             ]}
-            layout={{width: 550, height: 350, title: 'Deltas', margin: {
+            layout={{width: 550, height: 350, title: `Pr(${this.state.images[this.state.imageB].classname} | counterfactual(A)) - Pr(${this.state.images[this.state.imageB].classname} |  A) `, margin: {
               l: 175,
               r: 75
             }}}
             onHover={this.onDeltaHover}
+            // onUnhover={this.onDeltaUnhover}
           />
           </div>
       )
@@ -311,16 +381,34 @@ const EXPERIMENTS = [
                 {experimentCard}
               </div>
               <div className="col-md-4">
-                {basicsCard}
+                {basicsCardA}
+              </div>
+              <div className="col-md-4">
+                {basicsCardB}
               </div>
             </div>
           </div>
           <hr />
           <div className="container">
             <div className="row">
+            <div className="col-md-4">
               {imageACard}
-              {imageBCard}
-              {deltaPlotCard}
+            </div>
+            <div className="col-md-4">
+            {imageBCard}
+            </div>
+            <div className="col-md-4">
+            {APlotCard}
+            </div>
+            </div>
+            <div className="row" >
+              <div className="col-md-4" />
+              <div className="col-md-4">
+                {imageCCard}
+              </div>
+              <div className="col-md-4">
+                {deltaPlotCard}
+              </div>
             </div>
           </div>
           <hr />
@@ -346,6 +434,23 @@ const EXPERIMENTS = [
     throw Error("Impossible. Counterfactual should differ by exactly 1 concept.")
   }
 
+  function deltaProbabilityToPair(imageAInfo, imageBInfo) {
+    for (const [key, value] of Object.entries(imageBInfo.concepts)) {
+      if (imageAInfo.concepts[key] != value) {
+        return {
+          // ${key}:\n
+          "x": `${imageAInfo.concepts[key]}->${value}`, 
+          "delta": (
+            imageBInfo.predictions["clip"][imageBInfo.classname] - imageAInfo.predictions["clip"][imageBInfo.classname]),
+          "annotation": (
+            `${imageAInfo.predictions["clip"][imageBInfo.classname]}->${imageBInfo.predictions["clip"][imageBInfo.classname]}` 
+          )
+        }
+      }
+    }
+    throw Error("Impossible. Counterfactual should differ by exactly 1 concept.")
+  }
+
   function formatImagePath(image, experiment) {
     return `./${experiment}/images/${image}`;
   }
@@ -359,12 +464,20 @@ const EXPERIMENTS = [
 
   class ImgCard extends React.Component {
     render() {
-      const columns = this.props.classes.map(
+      const sorted_classes = this.props.classes.sort(
+        (a, b) => {
+          const valueA = this.props.info.predictions["clip"][a];
+          const valueB = this.props.info.predictions["clip"][b];
+          return valueB - valueA
+        }
+      );
+      const columns = sorted_classes.map(
         (classname, index) => {
-          return <th key={index}>{classname}</th>
+          const color = (classname == this.props.info.classname)? "#1E1EA9" : "#585858";
+          return <th key={index} style={{color: color}}>{classname}</th>
         }
       )
-      const predictions = this.props.classes.map(
+      const predictions = sorted_classes.map(
         (classname, index) => {
           return <td key={index}>{this.props.info.predictions["clip"][classname]}</td>
         }
@@ -387,6 +500,42 @@ const EXPERIMENTS = [
       )
     }
   }
+
+
+class ImageMenu extends React.Component {
+  render() {
+    const options = this.props.images.map(
+      (imgname) => (
+        <a
+          className={this.props.image == imgname ? "dropdown-item active" : "dropdown-item"}
+          key={imgname}
+          name={imgname}
+          onClick={this.props.update}
+          checked={this.props.image == imgname}
+          aria-pressed={this.props.image == imgname}
+        >{imgname}</a>
+      )
+    );
+    return (
+      <div>
+        <div className="card-body">
+          <p className="card-text">
+            Select an image.
+          </p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {this.props.image}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {options}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 
 const domContainer = document.querySelector('#entry');
 
