@@ -32,13 +32,13 @@ const EXPERIMENTS = [
         // Secondary (right) image that serves as a minimal difference.
         imageB: UNSET,
       };
-      this.savedStates = [];
       this.experiments = EXPERIMENTS;
 
       this.updateExperiment = this.updateExperiment.bind(this);
       this.updateClassname = this.updateClassname.bind(this);
       this.updateImageA = this.updateImageA.bind(this);
       this.updateImageB = this.updateImageB.bind(this);
+      this.onDeltaHover = this.onDeltaHover.bind(this)
       this._update = this._update.bind(this);
     }
 
@@ -79,6 +79,13 @@ const EXPERIMENTS = [
     updateImageB(event) {
       this._update(event, "imageB")
     }
+    onDeltaHover(event) {
+      const pointIndex = event.points[0].pointIndex;
+      const imageB = event.points[0].data.images[pointIndex];
+      this.setState({
+        imageB: imageB
+      })
+    }
     loadExperiment(experiment) {
       d3.json(`${experiment}/experiment.json`).then(
         (data) => {
@@ -91,8 +98,8 @@ const EXPERIMENTS = [
               basics: data["basics"],
               minimalpairs: data["minimalpairs"],
               classname: UNSET,
-              imageA: UNSET,
-              imageB: UNSET,
+              imageA: data["basics"][0],
+              imageB: data["minimalpairs"][data["basics"][0]][0],
             }
           )
         }
@@ -160,23 +167,23 @@ const EXPERIMENTS = [
           </div>
         </div>
       );
-      const classCard = (
-        <div>
-          <div className="card-body">
-            <p className="card-text">
-              Select the class.
-            </p>
-            <div className="dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.state.classname}
-              </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {classes}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      // const classCard = (
+      //   <div>
+      //     <div className="card-body">
+      //       <p className="card-text">
+      //         Select the class.
+      //       </p>
+      //       <div className="dropdown">
+      //         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      //           {this.state.classname}
+      //         </button>
+      //         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      //           {classes}
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // );
       const basicsCard = (
         <div>
           <div className="card-body">
@@ -195,46 +202,70 @@ const EXPERIMENTS = [
         </div>
       );
       const imageASelected = this.state.imageA != UNSET;
+      // const imageACard = !imageASelected ? null : (
+      //   <div className="card-body">
+      //       <p className="card-text">
+      //         Image.
+      //       </p>
+      //       {Img(this.state.imageA, this.state.experiment)}
+      //   </div>
+      // )
       const imageACard = !imageASelected ? null : (
-        <div className="card-body">
-            <p className="card-text">
-              Image.
-            </p>
-            {Img(this.state.imageA, this.state.experiment)}
-        </div>
+        <ImgCard
+        title="Base Image"
+          classes={this.state.classes}
+          predictions={this.state.classes.map(
+            classname => this.state.images[this.state.imageA].predictions["clip"][classname]
+          )}
+          info={this.state.images[this.state.imageA]}
+          experiment={this.state.experiment}
+        />
       )
-      const imageBCard = this.state.imageB == UNSET ? null : (
-        <div className="card-body">
-            <p className="card-text">
-              Image.
-            </p>
-            {Img(this.state.imageB, this.state.experiment)}
-        </div>
+
+      const imageBCard = !imageASelected ? null : (
+        <ImgCard
+          title="Counterfactual"
+          classes={this.state.classes}
+          predictions={this.state.classes.map(
+            classname => this.state.images[this.state.imageB].predictions["clip"][classname]
+          )}
+          info={this.state.images[this.state.imageB]}
+          experiment={this.state.experiment}
+        />
       )
+
+      // const imageBCard = this.state.imageB == UNSET ? null : (
+      //   <div className="card-body">
+      //       <p className="card-text">
+      //         Image.
+      //       </p>
+      //       {Img(this.state.imageB, this.state.experiment)}
+      //   </div>
+      // )
       let predictions;
       if (imageASelected) {
         predictions = this.state.classes.map(
           classname => this.state.images[this.state.imageA].predictions["clip"][classname]
         )
       }
-      const plotCard = !imageASelected ? null : (
-        <div className="card-body">
-            <Plot
-            data={[
-              {
-                x: this.state.classes,
-                y: predictions,
-                type: 'lines',
-                mode: 'markers',
-                marker: {color: 'red'},
-              },
-              {type: 'lines', x: this.state.classes, y: predictions},
-            ]}
-            layout={{width: 350, height: 350, title: 'Predictions'}}
-          />
-          </div>
-      )
-      let deltas = []; let x = []; let y = [];
+      // const plotCard = !imageASelected ? null : (
+      //   <div className="card-body">
+      //       <Plot
+      //       data={[
+      //         {
+      //           x: this.state.classes,
+      //           y: predictions,
+      //           type: 'lines',
+      //           mode: 'markers',
+      //           marker: {color: 'red'},
+      //         },
+      //         {type: 'lines', x: this.state.classes, y: predictions},
+      //       ]}
+      //       layout={{width: 350, height: 350, title: 'Predictions'}}
+      //     />
+      //     </div>
+      // )
+      let deltas = []; let x = []; let y = []; let annotations = [];
       if (imageASelected) {
         // let dictionary = data.reduce((a,x) => ({...a, [x.id]: x.country}), {})
         deltas = this.state.minimalpairs[this.state.imageA].map(
@@ -242,6 +273,7 @@ const EXPERIMENTS = [
         );
         x = deltas.map(delta => delta["x"]);
         y = deltas.map(delta => delta["delta"]);
+        annotations = deltas.map(delta => delta["annotation"]);
       }
 
       const deltaPlotCard = !imageASelected ? null : (
@@ -249,16 +281,24 @@ const EXPERIMENTS = [
             <Plot
             data={[
               {
-                x: x,
-                y: y,
+                x: y,
+                y: x,
                 type: 'bar',
                 mode: 'relative',
-                orientation='h',
-                // marker: {color: 'orange'},
+                orientation: 'h',
+                images: this.state.minimalpairs[this.state.imageA],
+                marker: {
+                  color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50") // blue if positive, red if negative.
+                },
+                text: annotations,
+                hoverinfo: "text"
               },
-              // {type: 'lines', x: x, y: y},
             ]}
-            layout={{width: 450, height: 350, title: 'Deltas'}}
+            layout={{width: 550, height: 350, title: 'Deltas', margin: {
+              l: 175,
+              r: 75
+            }}}
+            onHover={this.onDeltaHover}
           />
           </div>
       )
@@ -271,22 +311,19 @@ const EXPERIMENTS = [
                 {experimentCard}
               </div>
               <div className="col-md-4">
-                {classCard}
-              </div>
-              <div className="col-md-4">
                 {basicsCard}
               </div>
             </div>
-            <hr />
           </div>
+          <hr />
           <div className="container">
             <div className="row">
               {imageACard}
               {imageBCard}
-              {plotCard}
               {deltaPlotCard}
             </div>
           </div>
+          <hr />
         </div >
       )
     }
@@ -299,7 +336,10 @@ const EXPERIMENTS = [
           // ${key}:\n
           "x": `${imageAInfo.concepts[key]}->${value}`, 
           "delta": (
-            imageBInfo.predictions["clip"][imageAInfo.classname] - imageAInfo.predictions["clip"][imageAInfo.classname])
+            imageBInfo.predictions["clip"][imageAInfo.classname] - imageAInfo.predictions["clip"][imageAInfo.classname]),
+          "annotation": (
+            `${imageAInfo.predictions["clip"][imageAInfo.classname]}->${imageBInfo.predictions["clip"][imageAInfo.classname]}` 
+          )
         }
       }
     }
@@ -315,6 +355,37 @@ const EXPERIMENTS = [
       <img src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left"  />
       // <embed key={image['run']} src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left" title={formatCaption(image)} />
     );
+  }
+
+  class ImgCard extends React.Component {
+    render() {
+      const columns = this.props.classes.map(
+        (classname, index) => {
+          return <th key={index}>{classname}</th>
+        }
+      )
+      const predictions = this.props.classes.map(
+        (classname, index) => {
+          return <td key={index}>{this.props.info.predictions["clip"][classname]}</td>
+        }
+      )
+      return (
+        <div className="card-body">
+            <p className="card-text">
+              {this.props.title}
+            </p>
+          {Img(this.props.info.image, this.props.experiment)}
+          <table style={{width: 150}}>
+            <tr>
+              {columns}
+            </tr>
+            <tr>
+              {predictions}
+            </tr>
+          </table>
+        </div>
+      )
+    }
   }
 
 const domContainer = document.querySelector('#entry');

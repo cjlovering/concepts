@@ -24,6 +24,7 @@ module.exports = {
       }
     ]
   },
+  devtool: false, // Webpack.
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.NamedModulesPlugin()
