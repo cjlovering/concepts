@@ -26,8 +26,6 @@ const EXPERIMENTS = [
         images: {},
 
         // Name of the selected class to filter by.
-        classname: UNSET,
-        // Primary (left) image.
         imageA: UNSET,
         // Secondary (right) image that serves as a minimal difference.
         imageB: UNSET,
@@ -36,12 +34,9 @@ const EXPERIMENTS = [
       this.experiments = EXPERIMENTS;
 
       this.updateExperiment = this.updateExperiment.bind(this);
-      this.updateClassname = this.updateClassname.bind(this);
       this.updateImageA = this.updateImageA.bind(this);
       this.updateImageB = this.updateImageB.bind(this);
       this.onDeltaHover = this.onDeltaHover.bind(this);
-      // this.onDeltaUnhover = this.onDeltaUnhover.bind(this);
-      // this._update = this._update.bind(this);
     }
 
     componentDidMount() {
@@ -56,17 +51,7 @@ const EXPERIMENTS = [
       const experiment = target.name;
       this.loadExperiment(experiment);
     }
-    updateClassname(event) {
-      // Selecting the current classname unsets it.
-      const classname = (event.target.name == this.state.classname) ? UNSET : event.target.name;
-      this.setState(
-        {
-          "classname": classname,
-          "imageA": UNSET,
-          "imageB": UNSET,
-        }
-      )
-    }
+
     updateImageA(event) {
       const name = event.target.name;
       if (this.state.imageB == name) {
@@ -116,7 +101,7 @@ const EXPERIMENTS = [
               minimalpairs: data["minimalpairs"],
               classname: UNSET,
               imageA: data["basics"][0],
-              imageB: data["basics"][1], // data["minimalpairs"][data["basics"][0]][0],
+              imageB: data["basics"][1],
               imageC: UNSET
             }
           )
@@ -125,7 +110,6 @@ const EXPERIMENTS = [
     }
 
     render() {
-
       const experiments = this.experiments.map(
         (experiment) => (
           <a
@@ -138,47 +122,6 @@ const EXPERIMENTS = [
           >{experiment}</a>
         )
       );
-      // const classes = this.state.classes.map(
-      //   (classname) => (
-      //     <a
-      //       className={this.state.classname == classname ? "dropdown-item active" : "dropdown-item"}
-      //       key={classname}
-      //       name={classname}
-      //       onClick={this.updateClassname}
-      //       checked={this.state.classname == classname}
-      //       aria-pressed={this.state.classname == classname}
-      //     >{classname}</a>
-      //   )
-      // );
-      // const _basics = (this.state.classname == UNSET) ? this.state.basics : this.state.basics.filter(
-      //   (imgname) => (
-      //     this.state.images[imgname].classname == this.state.classname
-      //   )
-      // )
-      // const basicsA = this.state.basics.map(
-      //   (imgname) => (
-      //     <a
-      //       className={this.state.imgname == imgname ? "dropdown-item active" : "dropdown-item"}
-      //       key={imgname}
-      //       name={imgname}
-      //       onClick={this.updateImageA}
-      //       checked={this.state.imageA == imgname}
-      //       aria-pressed={this.state.imageA == imgname}
-      //     >{imgname}</a>
-      //   )
-      // );
-      // const basicsB = this.state.basics.map(
-      //   (imgname) => (
-      //     <a
-      //       className={this.state.imgname == imgname ? "dropdown-item active" : "dropdown-item"}
-      //       key={imgname}
-      //       name={imgname}
-      //       onClick={this.updateImageB}
-      //       checked={this.state.imageB == imgname}
-      //       aria-pressed={this.state.imageB == imgname}
-      //     >{imgname}</a>
-      //   )
-      // );
 
       const experimentCard = (
         <div>
@@ -197,23 +140,7 @@ const EXPERIMENTS = [
           </div>
         </div>
       );
-      // const classCard = (
-      //   <div>
-      //     <div className="card-body">
-      //       <p className="card-text">
-      //         Select the class.
-      //       </p>
-      //       <div className="dropdown">
-      //         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      //           {this.state.classname}
-      //         </button>
-      //         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      //           {classes}
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // );
+
       const basicsCardA = (<ImageMenu image={this.state.imageA} images={this.state.basics} update={this.state.updateImageA} />)
       const basicsCardB = (<ImageMenu image={this.state.imageB} images={this.state.basics} update={this.state.updateImageB} />)
  
@@ -221,14 +148,6 @@ const EXPERIMENTS = [
       const imageBSelected = this.state.imageB != UNSET;
       const imageCSelected = this.state.imageC != UNSET;
     
-      // const imageACard = !imageASelected ? null : (
-      //   <div className="card-body">
-      //       <p className="card-text">
-      //         Image.
-      //       </p>
-      //       {Img(this.state.imageA, this.state.experiment)}
-      //   </div>
-      // )
       const imageACard = imageASelected ?  (
         <ImgCard
         title="Image (A)"
@@ -265,49 +184,24 @@ const EXPERIMENTS = [
         />
       ) : null;
 
-      // const imageBCard = this.state.imageB == UNSET ? null : (
-      //   <div className="card-body">
-      //       <p className="card-text">
-      //         Image.
-      //       </p>
-      //       {Img(this.state.imageB, this.state.experiment)}
-      //   </div>
-      // )
-      let predictions;
+      let predictions = []; let deltas = []; let x = []; let y = []; let annotations = [];
       if (imageASelected) {
         predictions = this.state.classes.map(
           classname => this.state.images[this.state.imageA].predictions["clip"][classname]
         )
-      }
-      // const plotCard = !imageASelected ? null : (
-      //   <div className="card-body">
-      //       <Plot
-      //       data={[
-      //         {
-      //           x: this.state.classes,
-      //           y: predictions,
-      //           type: 'lines',
-      //           mode: 'markers',
-      //           marker: {color: 'red'},
-      //         },
-      //         {type: 'lines', x: this.state.classes, y: predictions},
-      //       ]}
-      //       layout={{width: 350, height: 350, title: 'Predictions'}}
-      //     />
-      //     </div>
-      // )
-      let deltas = []; let x = []; let y = []; let annotations = [];
-      if (imageASelected) {
-        // let dictionary = data.reduce((a,x) => ({...a, [x.id]: x.country}), {})
         deltas = this.state.minimalpairs[this.state.imageA].map(
-          imageB => conceptThatDiffers(this.state.images[this.state.imageA], this.state.images[imageB])
+          imageC => deltaProbability(
+            this.state.images[this.state.imageA], 
+            this.state.images[imageC],
+            this.state.images[this.state.imageA].classname,
+            this.state.images[this.state.imageA].classname)
         );
         x = deltas.map(delta => delta["x"]);
         y = deltas.map(delta => delta["delta"]);
         annotations = deltas.map(delta => delta["annotation"]);
       }
 
-      const APlotCard = !imageASelected ? null : (
+      const deltaSelfPlot = !imageASelected ? null : (
         <div className="card-body">
             <Plot
             data={[
@@ -325,11 +219,10 @@ const EXPERIMENTS = [
                 hoverinfo: "text"
               },
             ]}
-            layout={{width: 550, height: 350, title: `Pr(${this.state.images[this.state.imageA].classname} | counterfactual(A)) - Pr(${this.state.images[this.state.imageA].classname} |  A) `, margin: {
+            layout={{width: 550, height: 350, title: `Pr(Name(A) | counterfactual(A)) - Pr(Name(A) |  A) `, margin: {
               l: 175,
               r: 75
             }}}
-            // onHover={this.onDeltaHover}
           />
           </div>
       )
@@ -337,15 +230,18 @@ const EXPERIMENTS = [
       // Move plots into a component
       deltas = []; x = []; y = []; annotations = [];
       if (imageASelected) {
-        // let dictionary = data.reduce((a,x) => ({...a, [x.id]: x.country}), {})
-        deltas = this.state.minimalpairs[this.state.imageA].map(
-          imageB => deltaProbabilityToPair(this.state.images[this.state.imageA], this.state.images[imageB])
+          deltas = this.state.minimalpairs[this.state.imageA].map(
+          imageC => deltaProbability(
+            this.state.images[this.state.imageA], 
+            this.state.images[imageC],
+            this.state.images[this.state.imageB].classname,
+            this.state.images[this.state.imageB].classname)
         );
         x = deltas.map(delta => delta["x"]);
         y = deltas.map(delta => delta["delta"]);
         annotations = deltas.map(delta => delta["annotation"]);
       }
-      const deltaPlotCard = !imageASelected ? null : (
+      const deltaOtherPlot = !imageASelected ? null : (
         <div className="card-body">
             <Plot
             data={[
@@ -363,7 +259,7 @@ const EXPERIMENTS = [
                 hoverinfo: "text"
               },
             ]}
-            layout={{width: 550, height: 350, title: `Pr(${this.state.images[this.state.imageB].classname} | counterfactual(A)) - Pr(${this.state.images[this.state.imageB].classname} |  A) `, margin: {
+            layout={{width: 550, height: 350, title: `Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) `, margin: {
               l: 175,
               r: 75
             }}}
@@ -398,7 +294,7 @@ const EXPERIMENTS = [
             {imageBCard}
             </div>
             <div className="col-md-4">
-            {APlotCard}
+            {deltaSelfPlot}
             </div>
             </div>
             <div className="row" >
@@ -407,7 +303,7 @@ const EXPERIMENTS = [
                 {imageCCard}
               </div>
               <div className="col-md-4">
-                {deltaPlotCard}
+                {deltaOtherPlot}
               </div>
             </div>
           </div>
@@ -444,6 +340,24 @@ const EXPERIMENTS = [
             imageBInfo.predictions["clip"][imageBInfo.classname] - imageAInfo.predictions["clip"][imageBInfo.classname]),
           "annotation": (
             `${imageAInfo.predictions["clip"][imageBInfo.classname]}->${imageBInfo.predictions["clip"][imageBInfo.classname]}` 
+          )
+        }
+      }
+    }
+    throw Error("Impossible. Counterfactual should differ by exactly 1 concept.")
+  }
+
+
+  function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
+    for (const [key, value] of Object.entries(imageTo.concepts)) {
+      if (imageFrom.concepts[key] != value) {
+        return {
+          // ${key}:\n
+          "x": `${imageFrom.concepts[key]}->${value}`, 
+          "delta": (
+            imageTo.predictions["clip"][classTo] - imageFrom.predictions["clip"][classFrom]),
+          "annotation": (
+            `${imageFrom.predictions["clip"][classFrom]}->${imageTo.predictions["clip"][classTo]}` 
           )
         }
       }
