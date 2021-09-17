@@ -223,6 +223,7 @@ const EXPERIMENTS = [
               l: 175,
               r: 75
             }}}
+            onHover={this.onDeltaHover}
           />
           </div>
       )
@@ -312,41 +313,6 @@ const EXPERIMENTS = [
       )
     }
   }
-
-  function conceptThatDiffers(imageAInfo, imageBInfo) {
-    for (const [key, value] of Object.entries(imageBInfo.concepts)) {
-      if (imageAInfo.concepts[key] != value) {
-        return {
-          // ${key}:\n
-          "x": `${imageAInfo.concepts[key]}->${value}`, 
-          "delta": (
-            imageBInfo.predictions["clip"][imageAInfo.classname] - imageAInfo.predictions["clip"][imageAInfo.classname]),
-          "annotation": (
-            `${imageAInfo.predictions["clip"][imageAInfo.classname]}->${imageBInfo.predictions["clip"][imageAInfo.classname]}` 
-          )
-        }
-      }
-    }
-    throw Error("Impossible. Counterfactual should differ by exactly 1 concept.")
-  }
-
-  function deltaProbabilityToPair(imageAInfo, imageBInfo) {
-    for (const [key, value] of Object.entries(imageBInfo.concepts)) {
-      if (imageAInfo.concepts[key] != value) {
-        return {
-          // ${key}:\n
-          "x": `${imageAInfo.concepts[key]}->${value}`, 
-          "delta": (
-            imageBInfo.predictions["clip"][imageBInfo.classname] - imageAInfo.predictions["clip"][imageBInfo.classname]),
-          "annotation": (
-            `${imageAInfo.predictions["clip"][imageBInfo.classname]}->${imageBInfo.predictions["clip"][imageBInfo.classname]}` 
-          )
-        }
-      }
-    }
-    throw Error("Impossible. Counterfactual should differ by exactly 1 concept.")
-  }
-
 
   function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
     for (const [key, value] of Object.entries(imageTo.concepts)) {
