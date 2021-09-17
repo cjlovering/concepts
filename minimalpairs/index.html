@@ -28,14 +28,18 @@
       <div class="container">
         <h1 class="display-4">Minimal Pairs</h1>
         <p class="lead">
-          What features does a model use to differentiate various concepts?
+          What features does a model use to differentiate concepts?
         </p>
         <p>
-          Select two images to compare. The first bar plot shows how minimal changes to (A) changes the probability of the model predicting Name(A). The second bar chart shows how minimal changes to (A) change the probability of the model predicting Name(B).
+          Select two images to compare. The first bar plot shows how minimal changes to Image A changes the probability of the model predicting Name(A). The second bar chart shows how minimal changes to A changes the probability of the model predicting Name(B).
+        </p>
+        <p>
+          Each bar corresponds to the model's behavior on a different counterfactual image. The bar is labeled by the changes made to A to generate the counterfactual image; e.g., if the color was changed from red to blue, "red->blue". Hovering over a bar will show you the corresponding counterfactual image below.
         </p>
       </div>
     </div>
     <div id="entry"></div>
     <script src="./bundle.js"></script>
+    <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0"> </div>
   </body>
 </html>

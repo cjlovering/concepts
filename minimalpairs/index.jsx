@@ -54,6 +54,7 @@ const EXPERIMENTS = [
 
     updateImageA(event) {
       const name = event.target.name;
+      console.log("update A", this.state.imageA, this.state.imageB, name)
       if (this.state.imageB == name) {
         // Swap.
         this.setState({
@@ -68,6 +69,7 @@ const EXPERIMENTS = [
     }
     updateImageB(event) {
       const name = event.target.name;
+      console.log("update B", this.state.imageA, this.state.imageB, name)
       if (this.state.imageA == name) {
         // Swap.
         this.setState({
@@ -141,8 +143,8 @@ const EXPERIMENTS = [
         </div>
       );
 
-      const basicsCardA = (<ImageMenu image={this.state.imageA} images={this.state.basics} update={this.state.updateImageA} />)
-      const basicsCardB = (<ImageMenu image={this.state.imageB} images={this.state.basics} update={this.state.updateImageB} />)
+      const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} update={this.state.updateImageA} title={"A"} />;
+      const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics} update={this.state.updateImageB} title={"B"} />;
  
       const imageASelected = this.state.imageA != UNSET;
       const imageBSelected = this.state.imageB != UNSET;
@@ -150,7 +152,7 @@ const EXPERIMENTS = [
     
       const imageACard = imageASelected ?  (
         <ImgCard
-        title="Image (A)"
+        title="Image A"
           classes={this.state.classes}
           predictions={this.state.classes.map(
             classname => this.state.images[this.state.imageA].predictions["clip"][classname]
@@ -162,7 +164,7 @@ const EXPERIMENTS = [
 
       const imageBCard = imageBSelected ? (
         <ImgCard
-          title="Image (B)"
+          title="Image B"
           classes={this.state.classes}
           predictions={this.state.classes.map(
             classname => this.state.images[this.state.imageB].predictions["clip"][classname]
@@ -174,7 +176,7 @@ const EXPERIMENTS = [
 
       const imageCCard = imageCSelected ? (
         <ImgCard
-          title="Image (Counterfactual)"
+          title="Counterfactual of Image A"
           classes={this.state.classes}
           predictions={this.state.classes.map(
             classname => this.state.images[this.state.imageC].predictions["clip"][classname]
@@ -277,10 +279,12 @@ const EXPERIMENTS = [
               <div className="col-md-4">
                 {experimentCard}
               </div>
-              <div className="col-md-4">
+            </div>
+            <div className="row">
+              <div className="col-md-2">
                 {basicsCardA}
               </div>
-              <div className="col-md-4">
+              <div className="col-md-2">
                 {basicsCardB}
               </div>
             </div>
@@ -288,10 +292,10 @@ const EXPERIMENTS = [
           <hr />
           <div className="container">
             <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-2">
               {imageACard}
             </div>
-            <div className="col-md-4">
+            <div className="col-md-2">
             {imageBCard}
             </div>
             <div className="col-md-4">
@@ -299,8 +303,8 @@ const EXPERIMENTS = [
             </div>
             </div>
             <div className="row" >
-              <div className="col-md-4" />
-              <div className="col-md-4">
+              <div className="col-md-2" />
+              <div className="col-md-2">
                 {imageCCard}
               </div>
               <div className="col-md-4">
@@ -308,7 +312,6 @@ const EXPERIMENTS = [
               </div>
             </div>
           </div>
-          <hr />
         </div >
       )
     }
@@ -400,7 +403,7 @@ class ImageMenu extends React.Component {
       <div>
         <div className="card-body">
           <p className="card-text">
-            Select an image.
+            Select Image {this.props.title}.
           </p>
           <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
