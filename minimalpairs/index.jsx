@@ -54,7 +54,6 @@ const EXPERIMENTS = [
 
     updateImageA(event) {
       const name = event.target.name;
-      console.log("update A", this.state.imageA, this.state.imageB, name)
       if (this.state.imageB == name) {
         // Swap.
         this.setState({
@@ -69,7 +68,6 @@ const EXPERIMENTS = [
     }
     updateImageB(event) {
       const name = event.target.name;
-      console.log("update B", this.state.imageA, this.state.imageB, name)
       if (this.state.imageA == name) {
         // Swap.
         this.setState({
@@ -143,8 +141,8 @@ const EXPERIMENTS = [
         </div>
       );
 
-      const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} update={this.state.updateImageA} title={"A"} />;
-      const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics} update={this.state.updateImageB} title={"B"} />;
+      const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} update={this.updateImageA} title={"A"} />;
+      const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics} update={this.updateImageB} title={"B"} />;
  
       const imageASelected = this.state.imageA != UNSET;
       const imageBSelected = this.state.imageB != UNSET;
