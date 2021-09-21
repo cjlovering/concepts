@@ -296,18 +296,12 @@ const EXPERIMENTS = [
             <div className="col-md-2">
             {imageBCard}
             </div>
-            <div className="col-md-4">
-            {deltaSelfPlot}
-            </div>
-            </div>
-            <div className="row" >
-              <div className="col-md-2" />
-              <div className="col-md-2">
+            <div className="col-md-2">
                 {imageCCard}
-              </div>
-              <div className="col-md-4">
-                {deltaOtherPlot}
-              </div>
+            </div>
+            <div className="col-md-4">
+              {deltaOtherPlot}
+            </div>
             </div>
           </div>
         </div >
