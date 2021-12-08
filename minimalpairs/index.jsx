@@ -54,31 +54,31 @@ class App extends React.Component {
 
   updateImageA(event) {
     const name = event.target.name;
+    const classA = this.state.images[name]["classname"];
+
     if (this.state.imageB == name) {
       // Swap.
       this.setState({
-        "imageA": name,
-        "imageB": this.state.imageA
-      })
-    } else {
-      this.setState({
-        "imageA": name,
+        "imageB": UNSET,
       })
     }
+    this.setState({
+      "imageA": name,
+      "classA": classA
+    })
   }
   updateImageB(event) {
     const name = event.target.name;
     if (this.state.imageA == name) {
-      // Swap.
       this.setState({
-        "imageB": name,
-        "imageA": this.state.imageB
+        "imageA": UNSET,
+        "classA": UNSET 
       })
-    } else {
-      this.setState({
+    }
+    this.setState({
         "imageB": name,
       })
-    }    
+    
   }
   onDeltaHover(event) {
     const pointIndex = event.points[0].pointIndex;
@@ -91,7 +91,7 @@ class App extends React.Component {
   loadExperiment(experiment) {
     d3.json(`${experiment}/experiment.json`).then(
       (data) => {
-        console.log(data)
+        const classA = data["images"][data["basics"][0]]["classname"];
         this.setState(
           {
             experiment: data["experiment"],
@@ -101,48 +101,19 @@ class App extends React.Component {
             minimalpairs: data["minimalpairs"],
             classname: UNSET,
             imageA: data["basics"][0],
-            imageB: data["basics"][1],
+            imageB: data["basics"].find(img => data["images"][img]["classname"] != classA),
+            classA: classA,
             imageC: UNSET
           }
         )
+
       }
     );
   }
 
   render() {
-    const experiments = this.experiments.map(
-      (experiment) => (
-        <a
-          className={this.state.experiment == experiment ? "dropdown-item active" : "dropdown-item"}
-          key={experiment}
-          name={experiment}
-          onClick={this.updateExperiment}
-          checked={this.state.experiment == experiment}
-          // aria-pressed={this.state.pivot == experiment}
-        >{experiment}</a>
-      )
-    );
-
-    const experimentCard = (
-      <div>
-        <div className="card-body">
-          <p className="card-text">
-            Select an experiment.
-          </p>
-          <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {this.state.experiment}
-            </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {experiments}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
     const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} update={this.updateImageA} title={"A"} />;
-    const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics} update={this.updateImageB} title={"B"} />;
+    const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics.filter(img => this.state.images[img]["classname"] != this.state.classA)} update={this.updateImageB} title={"B"} />;
 
     const imageASelected = this.state.imageA != UNSET;
     const imageBSelected = this.state.imageB != UNSET;
@@ -174,7 +145,7 @@ class App extends React.Component {
 
     const imageCCard = imageCSelected ? (
       <ImgCard
-        title="Counterfactual of Image A"
+        title="Counterfactual(A)"
         classes={this.state.classes}
         predictions={this.state.classes.map(
           classname => this.state.images[this.state.imageC].predictions[classname]
@@ -183,55 +154,11 @@ class App extends React.Component {
         experiment={this.state.experiment}
       />
     ) : null;
-
-    let predictions = []; let deltas = []; let x = []; let y = []; let annotations = [];
-    if (imageASelected) {
-      predictions = this.state.classes.map(
-        classname => this.state.images[this.state.imageA].predictions[classname]
-      )
-      deltas = this.state.minimalpairs[this.state.imageA].map(
-        imageC => deltaProbability(
-          this.state.images[this.state.imageA], 
-          this.state.images[imageC],
-          this.state.images[this.state.imageA].classname,
-          this.state.images[this.state.imageA].classname)
-      );
-      x = deltas.map(delta => delta["x"]);
-      y = deltas.map(delta => delta["delta"]);
-      annotations = deltas.map(delta => delta["annotation"]);
-    }
-
-    const deltaSelfPlot = !imageASelected ? null : (
-      <div className="card-body">
-          <Plot
-          data={[
-            {
-              x: y,
-              y: x,
-              type: 'bar',
-              mode: 'relative',
-              orientation: 'h',
-              images: this.state.minimalpairs[this.state.imageA],
-              marker: {
-                color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50") // blue if positive, red if negative.
-              },
-              text: annotations,
-              hoverinfo: "text"
-            },
-          ]}
-          layout={{width: 550, height: 350, title: `Pr(Name(A) | counterfactual(A)) - Pr(Name(A) |  A) `, margin: {
-            l: 175,
-            r: 75
-          }}}
-          onHover={this.onDeltaHover}
-        />
-        </div>
-    )
       
     // Move plots into a component
-    deltas = []; x = []; y = []; annotations = [];
+    let deltas = []; let x = []; let y = []; let annotations = [];
     if (imageASelected) {
-        deltas = this.state.minimalpairs[this.state.imageA].map(
+      deltas = this.state.minimalpairs[this.state.imageA].map(
         imageC => deltaProbability(
           this.state.images[this.state.imageA], 
           this.state.images[imageC],
@@ -274,11 +201,6 @@ class App extends React.Component {
       <div>
         <div className="container">
           <div className="row">
-            <div className="col-md-4">
-              {experimentCard}
-            </div>
-          </div>
-          <div className="row">
             <div className="col-md-2">
               {basicsCardA}
             </div>
@@ -286,8 +208,9 @@ class App extends React.Component {
               {basicsCardB}
             </div>
           </div>
+          <hr />
         </div>
-        <hr />
+         
         <div className="container">
           <div className="row">
           <div className="col-md-2">
@@ -299,10 +222,13 @@ class App extends React.Component {
           <div className="col-md-2">
               {imageCCard}
           </div>
+          </div>
+          <div className="row">
           <div className="col-md-4">
             {deltaOtherPlot}
           </div>
           </div>
+          <hr />
         </div>
       </div >
     )
@@ -316,9 +242,9 @@ function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
         // ${key}:\n
         "x": `${imageFrom.concepts[key]}->${value}`, 
         "delta": (
-          imageTo.predictions[classTo] - imageFrom.predictions[classFrom]),
+          imageTo.predictions[classTo] - imageFrom.predictions[classFrom]).toFixed(2),
         "annotation": (
-          `${imageFrom.predictions[classFrom]}->${imageTo.predictions[classTo]}` 
+          `${imageFrom.predictions[classFrom].toFixed(2)}->${imageTo.predictions[classTo].toFixed(2)}` 
         )
       }
     }
@@ -332,7 +258,7 @@ function formatImagePath(image, experiment) {
 
 function Img(image, experiment) {
   return (
-    <img src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left" style="padding:1px;border:thin solid black;" />
+    <img src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left" style={{padding: "1px", border: "thin solid black"}}/>
   );
 }
 
@@ -347,13 +273,13 @@ class ImgCard extends React.Component {
     );
     const columns = sorted_classes.map(
       (classname, index) => {
-        const color = (classname == this.props.info.classname)? "#1E1EA9" : "#585858";
+        const color = (classname == this.props.info.classname)? "#14c523" : "#d51616"; //  "#1E1EA9" : "#585858";
         return <th key={index} style={{color: color}}>{classname}</th>
       }
     )
     const predictions = sorted_classes.map(
       (classname, index) => {
-        return <td key={index}>{this.props.info.predictions[classname]}</td>
+        return <td key={index}>{this.props.info.predictions[classname].toFixed(2)}</td>
       }
     )
     return (
