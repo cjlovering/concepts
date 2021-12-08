@@ -64,7 +64,8 @@ class App extends React.Component {
     }
     this.setState({
       "imageA": name,
-      "classA": classA
+      "classA": classA,
+      "imageB": this.state.basics.find(img => this.state.images[img]["classname"] != classA),
     })
   }
   updateImageB(event) {
@@ -112,8 +113,14 @@ class App extends React.Component {
   }
 
   render() {
-    const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} update={this.updateImageA} title={"A"} />;
-    const basicsCardB = <ImageMenu image={this.state.imageB} images={this.state.basics.filter(img => this.state.images[img]["classname"] != this.state.classA)} update={this.updateImageB} title={"B"} />;
+    const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} imageInfo={this.state.images} update={this.updateImageA} title={"A"} />;
+    const basicsCardB = <ImageMenu 
+        image={this.state.imageB}
+        images={this.state.basics.filter(img => this.state.images[img]["classname"] != this.state.classA)} 
+        imageInfo={this.state.images} 
+        update={this.updateImageB} 
+        title={"B"}
+      />;
 
     const imageASelected = this.state.imageA != UNSET;
     const imageBSelected = this.state.imageB != UNSET;
@@ -264,17 +271,15 @@ function Img(image, experiment) {
 
 class ImgCard extends React.Component {
   render() {
-    const sorted_classes = this.props.classes.sort(
-      (a, b) => {
-        const valueA = this.props.info.predictions[a];
-        const valueB = this.props.info.predictions[b];
-        return valueB - valueA
-      }
-    );
+    const sorted_classes = this.props.classes;
     const columns = sorted_classes.map(
       (classname, index) => {
-        const color = (classname == this.props.info.classname)? "#14c523" : "#d51616"; //  "#1E1EA9" : "#585858";
-        return <th key={index} style={{color: color}}>{classname}</th>
+        if (classname == this.props.info.classname) {
+          return <th key={index} style={{color: "#14c523"}}>{classname}</th>
+        } else {
+//          const color = # (classname == this.props.info.classname)? "#14c523" : "#d51616"; //  "#1E1EA9" : "#585858";
+          return <th key={index} style={{color: "black"}}>{classname}</th>
+        }
       }
     )
     const predictions = sorted_classes.map(
@@ -313,9 +318,10 @@ render() {
         onClick={this.props.update}
         checked={this.props.image == imgname}
         aria-pressed={this.props.image == imgname}
-      >{imgname}</a>
+      >{imgname} [{this.props.imageInfo[imgname].classname}]</a>
     )
   );
+  const title = this.props.image != UNSET ? this.props.imageInfo[this.props.image].classname : this.props.images[0];
   return (
     <div>
       <div className="card-body">
@@ -324,7 +330,7 @@ render() {
         </p>
         <div className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {this.props.image}
+            {title}
           </button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {options}
