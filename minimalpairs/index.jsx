@@ -4,7 +4,6 @@ import * as d3 from "d3";
 import Plot from 'react-plotly.js';
 
 const EXPERIMENTS = [
-  "mockdata",
   "milestone3"
 ]
 
