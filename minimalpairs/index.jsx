@@ -153,7 +153,7 @@ class App extends React.Component {
       title="Image A"
         classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.images[this.state.imageA].predictions["clip"][classname]
+          classname => this.state.images[this.state.imageA].predictions[classname]
         )}
         info={this.state.images[this.state.imageA]}
         experiment={this.state.experiment}
@@ -165,7 +165,7 @@ class App extends React.Component {
         title="Image B"
         classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.images[this.state.imageB].predictions["clip"][classname]
+          classname => this.state.images[this.state.imageB].predictions[classname]
         )}
         info={this.state.images[this.state.imageB]}
         experiment={this.state.experiment}
@@ -177,7 +177,7 @@ class App extends React.Component {
         title="Counterfactual of Image A"
         classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.images[this.state.imageC].predictions["clip"][classname]
+          classname => this.state.images[this.state.imageC].predictions[classname]
         )}
         info={this.state.images[this.state.imageC]}
         experiment={this.state.experiment}
@@ -187,7 +187,7 @@ class App extends React.Component {
     let predictions = []; let deltas = []; let x = []; let y = []; let annotations = [];
     if (imageASelected) {
       predictions = this.state.classes.map(
-        classname => this.state.images[this.state.imageA].predictions["clip"][classname]
+        classname => this.state.images[this.state.imageA].predictions[classname]
       )
       deltas = this.state.minimalpairs[this.state.imageA].map(
         imageC => deltaProbability(
@@ -316,9 +316,9 @@ function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
         // ${key}:\n
         "x": `${imageFrom.concepts[key]}->${value}`, 
         "delta": (
-          imageTo.predictions["clip"][classTo] - imageFrom.predictions["clip"][classFrom]),
+          imageTo.predictions[classTo] - imageFrom.predictions[classFrom]),
         "annotation": (
-          `${imageFrom.predictions["clip"][classFrom]}->${imageTo.predictions["clip"][classTo]}` 
+          `${imageFrom.predictions[classFrom]}->${imageTo.predictions[classTo]}` 
         )
       }
     }
@@ -340,8 +340,8 @@ class ImgCard extends React.Component {
   render() {
     const sorted_classes = this.props.classes.sort(
       (a, b) => {
-        const valueA = this.props.info.predictions["clip"][a];
-        const valueB = this.props.info.predictions["clip"][b];
+        const valueA = this.props.info.predictions[a];
+        const valueB = this.props.info.predictions[b];
         return valueB - valueA
       }
     );
@@ -353,7 +353,7 @@ class ImgCard extends React.Component {
     )
     const predictions = sorted_classes.map(
       (classname, index) => {
-        return <td key={index}>{this.props.info.predictions["clip"][classname]}</td>
+        return <td key={index}>{this.props.info.predictions[classname]}</td>
       }
     )
     return (
