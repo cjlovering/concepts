@@ -13,7 +13,7 @@
         ],
         "contiguous": [
             "contiguous",
-            "noncontiguous"
+            "discontiguous"
         ]
     },
     "classes": {
@@ -28,7 +28,7 @@
             "classname": "pile",
             "conceptsToFeatures": {
                 "shape": ["pentagon", "rectangle"],
-                "contiguous": ["noncontiguous"]
+                "contiguous": ["discontiguous", "contiguous"]
             }
         }
     },
@@ -62,7 +62,7 @@
             "concepts": {
                 "color": "red",
                 "shape": "rectangle",
-                "contiguous": "noncontiguous"
+                "contiguous": "discontiguous"
             },
             "predictions": {
                 "clip": {
@@ -107,7 +107,7 @@
             "concepts": {
                 "color": "red",
                 "shape": "oval",
-                "contiguous": "noncontiguous"
+                "contiguous": "discontiguous"
             },
             "predictions": {
                 "clip": {
