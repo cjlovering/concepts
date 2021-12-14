@@ -4,7 +4,8 @@ import * as d3 from "d3";
 import Plot from 'react-plotly.js';
 
 const EXPERIMENTS = [
-  "milestone3"
+  "default",
+  "correlated"
 ]
 
 const UNSET = ""
@@ -42,7 +43,7 @@ class App extends React.Component {
   componentDidMount() {
     // Load the last experiment.
     if (this.experiments.length > 0) {
-      this.loadExperiment(this.experiments[this.experiments.length - 1]);
+      this.loadExperiment(this.experiments[0]);
     }
   }
 
@@ -93,9 +94,13 @@ class App extends React.Component {
     d3.json(`${experiment}/experiment.json`).then(
       (data) => {
         const classA = data["images"][data["basics"][0]]["classname"];
+        let experiment = data["experiment"];
+        for (let val of Object.values(data.images)) {
+          val["predictions"]["splatter"] = 0.0
+        }
         this.setState(
           {
-            experiment: data["experiment"],
+            experiment: experiment,
             classes: Object.keys(data['classes']),
             images: data["images"],
             basics: data["basics"],
@@ -113,6 +118,35 @@ class App extends React.Component {
   }
 
   render() {
+    const experiments = this.experiments.map(
+      (experiment) => (
+        <a
+          className={this.state.experiment == experiment ? "dropdown-item active" : "dropdown-item"}
+          key={experiment}
+          name={experiment}
+          onClick={this.updateExperiment}
+          checked={this.state.experiment == experiment}
+          // aria-pressed={this.state.pivot == experiment}
+        >{experiment}</a>
+      )
+    );
+    const experimentCard = (
+      <div>
+        <div className="card-body">
+          <p className="card-text">
+            Select dataset.
+          </p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {this.state.experiment}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {experiments}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
     const basicsCardA = <ImageMenu image={this.state.imageA} images={this.state.basics} imageInfo={this.state.images} update={this.updateImageA} title={"A"} />;
     const basicsCardB = <ImageMenu 
         image={this.state.imageB}
@@ -163,7 +197,7 @@ class App extends React.Component {
     ) : null;
       
     // Move plots into a component
-    let deltas = []; let x = []; let y = []; let annotations = [];
+    let deltas = []; let x = []; let y = []; let y_orig = []; let annotations = [];
     if (imageASelected) {
       deltas = this.state.minimalpairs[this.state.imageA].map(
         imageC => deltaProbability(
@@ -174,8 +208,12 @@ class App extends React.Component {
       );
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
+      y_orig = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
     }
+    const notCurrentClass =  !imageBSelected ? "{Select an Image B}" : this.state.images[this.state.imageB].classname;
+    const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
+
     const deltaOtherPlot = !imageASelected ? null : (
       <div className="card-body">
           <Plot
@@ -188,22 +226,31 @@ class App extends React.Component {
               orientation: 'h',
               images: this.state.minimalpairs[this.state.imageA],
               marker: {
-                color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50") // blue if positive, red if negative.
+                color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50"), // blue if positive, red if negative.
+                line: y_orig.map(val => (Math.abs(val) < 0.01) ? {
+                  width: 5
+                } : {
+                  width: 0
+                }
+                )
               },
               text: annotations,
-              hoverinfo: "text"
+              hoverinfo: "text",
+
             },
           ]}
-          layout={{width: 550, height: 350, title: `Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) `, margin: {
+          layout={{width: 550, height: 350, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
             l: 175,
-            r: 75
-          }}}
+            r: 75,
+          },
+          xaxis: {range: [-1.0, 1.0], autorange: false,   },
+        }}
           onHover={this.onDeltaHover}
           // onUnhover={this.onDeltaUnhover}
         />
+        {message}
         </div>
     )
-
     return (
       <div>
         <div className="container">
@@ -213,6 +260,9 @@ class App extends React.Component {
             </div>
             <div className="col-md-2">
               {basicsCardB}
+            </div>
+            <div className="col-md-2">
+              {experimentCard}
             </div>
           </div>
           <hr />
@@ -231,7 +281,7 @@ class App extends React.Component {
           </div>
           </div>
           <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-6.5"  style={{padding: "1px", border: "thin solid black"}}>
             {deltaOtherPlot}
           </div>
           </div>
@@ -246,10 +296,8 @@ function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
   for (const [key, value] of Object.entries(imageTo.concepts)) {
     if (imageFrom.concepts[key] != value) {
       return {
-        // ${key}:\n
         "x": `${imageFrom.concepts[key]}->${value}`, 
-        "delta": (
-          imageTo.predictions[classTo] - imageFrom.predictions[classFrom]).toFixed(2),
+        "delta":(imageTo.predictions[classTo].toFixed(2) - imageFrom.predictions[classFrom]).toFixed(2),
         "annotation": (
           `${imageFrom.predictions[classFrom].toFixed(2)}->${imageTo.predictions[classTo].toFixed(2)}` 
         )
@@ -271,20 +319,15 @@ function Img(image, experiment) {
 
 class ImgCard extends React.Component {
   render() {
-    const sorted_classes = this.props.classes;
-    const columns = sorted_classes.map(
-      (classname, index) => {
+    const zip = (a, b) => a.map((k, i) => [k, b[i]]);
+    const tableData = zip(this.props.classes, this.props.predictions).map(
+      ([classname, prediction], index) => {
+        console.log(classname, prediction, index)
         if (classname == this.props.info.classname) {
-          return <th key={index} style={{color: "#14c523"}}>{classname}</th>
+          return <tr> <th key={index} style={{color: "#14c523"}}>{classname}</th> <td key={index}>{prediction.toFixed(2)}</td></tr>
         } else {
-//          const color = # (classname == this.props.info.classname)? "#14c523" : "#d51616"; //  "#1E1EA9" : "#585858";
-          return <th key={index} style={{color: "black"}}>{classname}</th>
+          return <tr> <th key={index} style={{color: "black"}}>{classname}</th> <td key={index}>{prediction.toFixed(2)}</td></tr>
         }
-      }
-    )
-    const predictions = sorted_classes.map(
-      (classname, index) => {
-        return <td key={index}>{this.props.info.predictions[classname].toFixed(2)}</td>
       }
     )
     return (
@@ -294,12 +337,7 @@ class ImgCard extends React.Component {
           </p>
         {Img(this.props.info.image, this.props.experiment)}
         <table style={{width: 150}}>
-          <tr>
-            {columns}
-          </tr>
-          <tr>
-            {predictions}
-          </tr>
+          {tableData}
         </table>
       </div>
     )
@@ -318,7 +356,7 @@ render() {
         onClick={this.props.update}
         checked={this.props.image == imgname}
         aria-pressed={this.props.image == imgname}
-      >{imgname} [{this.props.imageInfo[imgname].classname}]</a>
+      >{this.props.imageInfo[imgname].classname} [{this.props.imageInfo[imgname].concepts.contiguous}, {this.props.imageInfo[imgname].concepts.shape}, {this.props.imageInfo[imgname].concepts.layout}, {this.props.imageInfo[imgname].concepts.stroke}, {this.props.imageInfo[imgname].concepts.color}]</a>
     )
   );
   const title = this.props.image != UNSET ? this.props.imageInfo[this.props.image].classname : this.props.images[0];
