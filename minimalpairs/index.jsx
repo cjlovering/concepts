@@ -322,11 +322,19 @@ class ImgCard extends React.Component {
     const zip = (a, b) => a.map((k, i) => [k, b[i]]);
     const tableData = zip(this.props.classes, this.props.predictions).map(
       ([classname, prediction], index) => {
-        console.log(classname, prediction, index)
-        if (classname == this.props.info.classname) {
-          return <tr> <th key={index} style={{color: "#14c523"}}>{classname}</th> <td key={index}>{prediction.toFixed(2)}</td></tr>
+        let color;
+        if (prediction > 0.5) {
+          color = "#14c523";
         } else {
-          return <tr> <th key={index} style={{color: "black"}}>{classname}</th> <td key={index}>{prediction.toFixed(2)}</td></tr>
+          color = "#D44458";
+        }
+        if (classname == this.props.info.classname) {
+          return <tr key={index}> 
+            <td style={{color: color, fontWeight: "bold"}}>{classname}</td> 
+            <td style={{color: color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>
+          </tr>
+        } else {
+          return <tr key={index}> <td  style={{color: "black"}}>{classname}</td> <td>{prediction.toFixed(2)}</td></tr>
         }
       }
     )
