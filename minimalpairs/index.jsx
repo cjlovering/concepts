@@ -226,13 +226,7 @@ class App extends React.Component {
               orientation: 'h',
               images: this.state.minimalpairs[this.state.imageA],
               marker: {
-                color: y.map(val => (val > 0) ? "#21abcd" : "#e52b50"), // blue if positive, red if negative.
-                line: y_orig.map(val => (Math.abs(val) < 0.01) ? {
-                  width: 5
-                } : {
-                  width: 0
-                }
-                )
+                color: y.map(getBarColor), // blue if positive, red if negative.
               },
               text: annotations,
               hoverinfo: "text",
@@ -292,12 +286,27 @@ class App extends React.Component {
   }
 }
 
+function getBarColor(val) {
+  if (Math.abs(val) <= 0.05) {
+    return "#ff8c00"
+  } else if (val < 0) {
+    return "#e52b50"
+  } else {
+    return "#21abcd"
+  }
+  // blue if positive, red if negative.
+}
+
 function deltaProbability(imageFrom, imageTo, classFrom, classTo) {
   for (const [key, value] of Object.entries(imageTo.concepts)) {
     if (imageFrom.concepts[key] != value) {
+      let delta = (imageTo.predictions[classTo] - imageFrom.predictions[classFrom]).toFixed(2);
+      if (Math.abs(delta) < 0.05) {
+        delta = 0.05;
+      }
       return {
         "x": `${imageFrom.concepts[key]}->${value}`, 
-        "delta":(imageTo.predictions[classTo].toFixed(2) - imageFrom.predictions[classFrom]).toFixed(2),
+        "delta": delta,
         "annotation": (
           `${imageFrom.predictions[classFrom].toFixed(2)}->${imageTo.predictions[classTo].toFixed(2)}` 
         )
