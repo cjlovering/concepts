@@ -50,10 +50,8 @@
                  "contiguous": "contiguous"
              },
              "predictions": {
-                 "clip": {
                      "blob": 0.9,
                      "pile": 0.1
-                 }
              }
         },
         "2.png": {
@@ -65,10 +63,8 @@
                 "contiguous": "discontiguous"
             },
             "predictions": {
-                "clip": {
                     "blob": 0.3,
                     "pile": 0.7
-                }
             }
        }, 
        "3.png": {
@@ -80,10 +76,8 @@
             "contiguous": "contiguous"
         },
         "predictions": {
-            "clip": {
                 "blob": 0.5,
                 "pile": 0.5
-            }
         }
        }, 
        "4.png": {
@@ -95,10 +89,8 @@
             "contiguous": "contiguous"
         },
         "predictions": {
-            "clip": {
                 "blob": 0.5,
                 "pile": 0.5
-            }
         }
        },
        "5.png": {
@@ -110,10 +102,8 @@
                 "contiguous": "discontiguous"
             },
             "predictions": {
-                "clip": {
                     "blob": 0.4,
                     "pile": 0.6
-                }
             }
        },
        "7.png": {
@@ -125,10 +115,8 @@
             "contiguous": "contiguous"
         },
         "predictions": {
-            "clip": {
                 "blob": 0.8,
                 "pile": 0.2
-            }
         }
        },
        "9.png": {
@@ -140,10 +128,8 @@
             "contiguous": "contiguous"
         },
         "predictions": {
-            "clip": {
                 "blob": 0.99,
                 "pile": 0.01
-            }
         }
        }
     }

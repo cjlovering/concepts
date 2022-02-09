@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import * as d3 from "d3";
 import Plot from 'react-plotly.js';
 
+// Add folders that match the format of `mockdata`, 
+// and put the name of those folders in the list below.
 const EXPERIMENTS = [
-  "default",
-  "correlated"
+  "mockdata"
 ]
 
 const UNSET = ""
