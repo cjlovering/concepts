@@ -244,8 +244,8 @@ class App extends React.Component {
             },
           ]}
           layout={{width: 450, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
-            l: 150,
-            r: 25,
+            l: 170,
+            r: 5,
           },
           xaxis: {range: [-1.0, 1.0], autorange: false,   },
         }}
