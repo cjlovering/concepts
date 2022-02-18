@@ -243,9 +243,9 @@ class App extends React.Component {
 
             },
           ]}
-          layout={{width: 550, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
-            l: 175,
-            r: 75,
+          layout={{width: 450, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
+            l: 150,
+            r: 25,
           },
           xaxis: {range: [-1.0, 1.0], autorange: false,   },
         }}
@@ -273,19 +273,19 @@ class App extends React.Component {
          
         <div className="container">
           <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-6">
             {videoACard}
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
           {videoBCard}
           </div>
 
           </div>
           <div className="row">
-          <div className="col-md-7"  style={{padding: "1px", border: "thin solid black"}}>
+          <div className="col-md-6"  style={{padding: "1px", border: "thin solid black"}}>
             {deltaOtherPlot}
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
               {videoCCard}
           </div>
           </div>
@@ -333,7 +333,11 @@ function formatVideoPath(video, experiment) {
 
 function Video(video, experiment) {
   return (
-    <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"500px"} data-toggle="tooltip" data-placement="left" style={{padding: "1px", border: "thin solid black",}}/>
+    <div style={{"overflow": "hidden", "padding": "1px", "border": "thin solid black"}}>
+      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"1000px"} data-toggle="tooltip" data-placement="left" style={{
+        marginTop: "-20%", marginLeft: "-45%", marginBottom: "-20%"
+        }}/>
+    </div>
   );
 }
 

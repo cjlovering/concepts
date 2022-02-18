@@ -321,9 +321,9 @@ function formatImagePath(image, experiment) {
   return `./${experiment}/images/${image}`;
 }
 
-function Img(image, experiment) {
+function Video(image, experiment) {
   return (
-    <img src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left" style={{padding: "1px", border: "thin solid black"}}/>
+    <video src={formatImagePath(image, experiment)} className="img-fluid" data-toggle="tooltip" data-placement="left" style={{padding: "1px", border: "thin solid black"}}/>
   );
 }
 
@@ -353,7 +353,7 @@ class ImgCard extends React.Component {
           <p className="card-text">
             {this.props.title}
           </p>
-        {Img(this.props.info.image, this.props.experiment)}
+        {Video(this.props.info.image, this.props.experiment)}
         <table style={{width: 150}}>
           {tableData}
         </table>

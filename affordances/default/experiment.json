@@ -27,7 +27,7 @@
 	],
 	"minimalpairs": {
 		"obj_0_base.mp4": ["obj_0_vel-1.mp4","obj_0_base.mp4","obj_0_z-1.mp4","obj_0_mass1.mp4","obj_0_vel2.mp4","obj_1.mp4","obj_0_x2.mp4","obj_0_vel-2.mp4","obj_0_mass-2.mp4","obj_0_vel1.mp4","obj_0_noRoll.mp4","obj_0_z1.mp4","obj_0_z2.mp4","obj_0_x-2.mp4","obj_0_mass-1.mp4","obj_0_x1.mp4","obj_0_mass2.mp4","obj_0_z-2.mp4","obj_0_x-1.mp4"],
-		"obj_3_base.mp4": ["obj_3_vel-1.mp4","obj_3_base.mp4","obj_3_z-1.mp4","obj_3_mass1.mp4","obj_3_vel2.mp4","obj_4.mp4","obj_3_x2.mp4","obj_3_vel-2.mp4","obj_3_mass-2.mp4","obj_3_vel1.mp4","obj_rolling.mp4","obj_3_z1.mp4","obj_3_z2.mp4","obj_3_x-2.mp4","obj_3_mass-1.mp4","obj_3_x1.mp4","obj_3_mass2.mp4","obj_3_z-2.mp4","obj_3_x-1.mp4"]
+		"obj_3_base.mp4": ["obj_7.mp4", "obj_3_vel-1.mp4","obj_3_base.mp4","obj_3_z-1.mp4","obj_3_mass1.mp4","obj_3_vel2.mp4","obj_4.mp4","obj_3_x2.mp4","obj_3_vel-2.mp4","obj_3_mass-2.mp4","obj_3_vel1.mp4","obj_rolling.mp4","obj_3_z1.mp4","obj_3_z2.mp4","obj_3_x-2.mp4","obj_3_mass-1.mp4","obj_3_x1.mp4","obj_3_mass2.mp4","obj_3_z-2.mp4","obj_3_x-1.mp4"]
 	},
 	"videos": {
 	    "obj_3_vel1.mp4": {
