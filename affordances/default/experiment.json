@@ -7,6 +7,7 @@
 		"velocity":["softestPush", "softPush", "normalPush", "hardPush", "hardestPush"],
 		"shape": ["box", "plate", "book", "soccer ball", "bucky ball", "bomb ball"]
 	},
+
 	"classes": {
 		"roll": {
 			"classname": "roll",
@@ -21,14 +22,113 @@
 			}
 		}
 	},
+
 	"basics": [
 		"obj_0_base.mp4",
-		"obj_3_base.mp4"
+		"obj_3_base.mp4",
+		"S5_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "S3_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "S4_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "S2_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+        "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4"
 	],
+
 	"minimalpairs": {
-		"obj_0_base.mp4": ["obj_0_vel-1.mp4","obj_0_base.mp4","obj_0_z-1.mp4","obj_0_mass1.mp4","obj_0_vel2.mp4","obj_1.mp4","obj_0_x2.mp4","obj_0_vel-2.mp4","obj_0_mass-2.mp4","obj_0_vel1.mp4","obj_0_noRoll.mp4","obj_0_z1.mp4","obj_0_z2.mp4","obj_0_x-2.mp4","obj_0_mass-1.mp4","obj_0_x1.mp4","obj_0_mass2.mp4","obj_0_z-2.mp4","obj_0_x-1.mp4"],
-		"obj_3_base.mp4": ["obj_7.mp4", "obj_3_vel-1.mp4","obj_3_base.mp4","obj_3_z-1.mp4","obj_3_mass1.mp4","obj_3_vel2.mp4","obj_4.mp4","obj_3_x2.mp4","obj_3_vel-2.mp4","obj_3_mass-2.mp4","obj_3_vel1.mp4","obj_rolling.mp4","obj_3_z1.mp4","obj_3_z2.mp4","obj_3_x-2.mp4","obj_3_mass-1.mp4","obj_3_x1.mp4","obj_3_mass2.mp4","obj_3_z-2.mp4","obj_3_x-1.mp4"]
+		"obj_0_base.mp4": ["obj_0_vel-1.mp4","obj_0_base.mp4","obj_0_z-1.mp4","obj_0_mass1.mp4","obj_0_vel2.mp4","obj_1.mp4","obj_0_x2.mp4","obj_0_vel-2.mp4","obj_0_mass-2.mp4","obj_0_vel1.mp4","obj_0_noRoll.mp4","obj_0_z1.mp4","obj_0_z2.mp4","obj_0_x-2.mp4","obj_0_mass-1.mp4","obj_0_x1.mp4","obj_0_mass2.mp4","obj_0_z-2.mp4","obj_0_x-1.mp4", "obj_6.mp4"],
+		"obj_3_base.mp4": ["obj_3_vel-1.mp4","obj_3_base.mp4","obj_3_z-1.mp4","obj_3_mass1.mp4","obj_3_vel2.mp4","obj_4.mp4","obj_3_x2.mp4","obj_3_vel-2.mp4","obj_3_mass-2.mp4","obj_3_vel1.mp4","obj_rolling.mp4","obj_3_z1.mp4","obj_3_z2.mp4","obj_3_x-2.mp4","obj_3_mass-1.mp4","obj_3_x1.mp4","obj_3_mass2.mp4","obj_3_z-2.mp4","obj_3_x-1.mp4", "obj_7.mp4"],
+		"R5_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": ["R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4", "R5_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4", "R5_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4", "R5_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4", "R5_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4", "R5_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4", "R5_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4", "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4"], 
+		"R4_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": ["R4_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R4_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4", "R4_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4", "R4_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4", "R4_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4", "R4_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4", "R4_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4", "R4_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4"], 
+		"R2_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": ["R2_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4", "R2_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4", "R2_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4", "R2_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4", "R2_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4", "R2_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4", "R2_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4", "R2_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4"], 
+		"R3_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": ["R3_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4", "R3_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4", "R3_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4", "R3_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4", "R3_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4", "R3_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4", "R3_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4"],
+		"S5_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": [
+	        "S5_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+	        "S5_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+	        "S5_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+	        "S5_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+	        "S5_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+	        "S5_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+	        "S5_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S5_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4"
+	    ],
+	    "S3_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": [
+	        "S3_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+	        "S3_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+	        "S3_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+	        "S3_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+	        "S3_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+	        "S3_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4"
+	    ],
+	    "S4_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": [
+	        "S4_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+	        "S4_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+	        "S4_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+	        "S4_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+	        "S4_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+	        "S4_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+	        "S4_box_normalMass_normalPush_rolling_middleX_middleZ.mp4"
+	    ],
+	    "S2_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": [
+	        "S2_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+	        "S2_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+	        "S2_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+	        "S2_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+	        "S2_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+	        "S2_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+	        "S2_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+	        "S2_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+	        "S2_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+	        "S2_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4"
+    ]
 	},
+
 	"videos": {
 	    "obj_3_vel1.mp4": {
 	        "video": "obj_3_vel1.mp4",
@@ -400,7 +500,7 @@
 	    },
 	    "obj_0_noRoll.mp4": {
 	        "video": "obj_0_noRoll.mp4",
-	        "classname": "roll",
+	        "classname": "slide",
 	        "concepts": {
 	            "mass": "normalMass",
 	            "x": "middleX",
@@ -669,6 +769,2568 @@
 	            "slide": 0.4458337128162384,
 	            "roll": 0.554166316986084
  	       }
-    	}
-	}
+    	},
+        "S2_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5679684281349182,
+                "roll": 0.4320315718650818
+            }
+        },
+        "S2_box_normalMass_normalPush_rolling_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.02888946235179901,
+                "roll": 0.9711105227470398
+            }
+        },
+        "S2_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "book",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.48164910078048706,
+                "roll": 0.5183508992195129
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6481126546859741,
+                "roll": 0.3518873155117035
+            }
+        },
+        "S4_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8521678447723389,
+                "roll": 0.14783218502998352
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5225326418876648,
+                "roll": 0.4774673879146576
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5218890905380249,
+                "roll": 0.4781109094619751
+            }
+        },
+        "S3_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5634105801582336,
+                "roll": 0.43658944964408875
+            }
+        },
+        "S3_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "book",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.44586440920829773,
+                "roll": 0.5541355609893799
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7786245346069336,
+                "roll": 0.2213754802942276
+            }
+        },
+        "S3_box_normalMass_normalPush_rolling_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.03546162322163582,
+                "roll": 0.9645383954048157
+            }
+        },
+        "S2_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7673165202140808,
+                "roll": 0.23268352448940277
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6057927012443542,
+                "roll": 0.394207239151001
+            }
+        },
+        "S2_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5980331897735596,
+                "roll": 0.40196681022644043
+            }
+        },
+        "S3_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6662594079971313,
+                "roll": 0.33374062180519104
+            }
+        },
+        "S3_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7941784858703613,
+                "roll": 0.20582151412963867
+            }
+        },
+        "S5_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5550916194915771,
+                "roll": 0.44490841031074524
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5996115207672119,
+                "roll": 0.4003885090351105
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6499347686767578,
+                "roll": 0.3500652313232422
+            }
+        },
+        "S4_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7114413976669312,
+                "roll": 0.2885585427284241
+            }
+        },
+        "S3_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6919887661933899,
+                "roll": 0.3080112636089325
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7872382998466492,
+                "roll": 0.2127617746591568
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5778679251670837,
+                "roll": 0.42213204503059387
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.4650703966617584,
+                "roll": 0.534929633140564
+            }
+        },
+        "S5_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6065227389335632,
+                "roll": 0.39347726106643677
+            }
+        },
+        "S4_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8373932838439941,
+                "roll": 0.16260671615600586
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5359874367713928,
+                "roll": 0.4640125632286072
+            }
+        },
+        "S5_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6092913150787354,
+                "roll": 0.39070865511894226
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.4927017092704773,
+                "roll": 0.5072983503341675
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.48248186707496643,
+                "roll": 0.5175181031227112
+            }
+        },
+        "S4_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "plate",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8013875484466553,
+                "roll": 0.1986125111579895
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5355561375617981,
+                "roll": 0.4644438624382019
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.4250202476978302,
+                "roll": 0.5749797224998474
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6529145836830139,
+                "roll": 0.3470854163169861
+            }
+        },
+        "S4_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8522738814353943,
+                "roll": 0.1477261185646057
+            }
+        },
+        "S3_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.3985126316547394,
+                "roll": 0.6014873385429382
+            }
+        },
+        "S2_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5593772530555725,
+                "roll": 0.4406227171421051
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7570117712020874,
+                "roll": 0.2429882287979126
+            }
+        },
+        "S3_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5242903828620911,
+                "roll": 0.47570961713790894
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5007125735282898,
+                "roll": 0.4992874264717102
+            }
+        },
+        "S5_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "plate",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5313854217529297,
+                "roll": 0.4686145484447479
+            }
+        },
+        "S5_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5473218560218811,
+                "roll": 0.4526781737804413
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8016937375068665,
+                "roll": 0.19830632209777832
+            }
+        },
+        "S3_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5458469390869141,
+                "roll": 0.45415306091308594
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5733764171600342,
+                "roll": 0.42662355303764343
+            }
+        },
+        "S5_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6665751338005066,
+                "roll": 0.3334248661994934
+            }
+        },
+        "S2_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5673878192901611,
+                "roll": 0.4326121211051941
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6639381647109985,
+                "roll": 0.33606186509132385
+            }
+        },
+        "S2_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6776899695396423,
+                "roll": 0.3223100006580353
+            }
+        },
+        "S5_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6346353888511658,
+                "roll": 0.36536458134651184
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.48239514231681824,
+                "roll": 0.5176048278808594
+            }
+        },
+        "S2_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5470687747001648,
+                "roll": 0.4529311954975128
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8005350828170776,
+                "roll": 0.1994648575782776
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5120290517807007,
+                "roll": 0.4879709780216217
+            }
+        },
+        "S3_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.49669021368026733,
+                "roll": 0.5033097863197327
+            }
+        },
+        "S4_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.47635453939437866,
+                "roll": 0.5236454606056213
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5542675256729126,
+                "roll": 0.4457324743270874
+            }
+        },
+        "S2_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5912858247756958,
+                "roll": 0.4087141752243042
+            }
+        },
+        "S4_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.651901364326477,
+                "roll": 0.34809863567352295
+            }
+        },
+        "S2_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "plate",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6620038747787476,
+                "roll": 0.33799612522125244
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5597167611122131,
+                "roll": 0.44028323888778687
+            }
+        },
+        "S5_box_normalMass_normalPush_rolling_middleX_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.042802177369594574,
+                "roll": 0.9571978449821472
+            }
+        },
+        "S4_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7691523432731628,
+                "roll": 0.2308475822210312
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6095415949821472,
+                "roll": 0.39045843482017517
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7943853735923767,
+                "roll": 0.20561456680297852
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.680007815361023,
+                "roll": 0.3199921250343323
+            }
+        },
+        "S5_box_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "S5_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6625136733055115,
+                "roll": 0.3374863266944885
+            }
+        },
+        "S4_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "book",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7480698227882385,
+                "roll": 0.25193020701408386
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.788055956363678,
+                "roll": 0.2119441032409668
+            }
+        },
+        "S3_box_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "S3_box_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.46965697407722473,
+                "roll": 0.5303429961204529
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7931500673294067,
+                "roll": 0.20684991776943207
+            }
+        },
+        "S4_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7681056261062622,
+                "roll": 0.23189441859722137
+            }
+        },
+        "S5_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5963675379753113,
+                "roll": 0.4036324620246887
+            }
+        },
+        "S2_box_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "S2_box_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5239560008049011,
+                "roll": 0.47604402899742126
+            }
+        },
+        "S5_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_book_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "book",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5311336517333984,
+                "roll": 0.46886637806892395
+            }
+        },
+        "S3_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S3_plate_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "plate",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.46634259819984436,
+                "roll": 0.533657431602478
+            }
+        },
+        "S2_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S2_box_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.6220393180847168,
+                "roll": 0.3779606521129608
+            }
+        },
+        "S5_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S5_box_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.5147523283958435,
+                "roll": 0.4852477014064789
+            }
+        },
+        "S4_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8496231436729431,
+                "roll": 0.15037688612937927
+            }
+        },
+        "S4_box_normalMass_normalPush_rolling_middleX_middleZ.mp4": {
+            "video": "S4_box_normalMass_normalPush_rolling_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "box",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.03165468946099281,
+                "roll": 0.9683453440666199
+            }
+       },
+       "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3653727173805237,
+                "roll": 0.6346272826194763
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.5179520845413208,
+                "roll": 0.4820479154586792
+            }
+        },
+        "R3_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.1203022226691246,
+                "roll": 0.8796977996826172
+            }
+        },
+        "R2_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.24593640863895416,
+                "roll": 0.7540635466575623
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.27305078506469727,
+                "roll": 0.726949155330658
+            }
+        },
+        "R4_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bomb ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.5777614116668701,
+                "roll": 0.42223861813545227
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.29813843965530396,
+                "roll": 0.7018615007400513
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.31868213415145874,
+                "roll": 0.6813178658485413
+            }
+        },
+        "R4_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "soccer ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.12680093944072723,
+                "roll": 0.8731991052627563
+            }
+        },
+        "R3_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.358824759721756,
+                "roll": 0.6411752700805664
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3440874516963959,
+                "roll": 0.6559125781059265
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3388139605522156,
+                "roll": 0.6611860394477844
+            }
+        },
+        "R3_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3924868404865265,
+                "roll": 0.6075131893157959
+            }
+        },
+        "R5_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.6804801225662231,
+                "roll": 0.31951990723609924
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7619194984436035,
+                "roll": 0.23808050155639648
+            }
+        },
+        "R2_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3210887312889099,
+                "roll": 0.6789112091064453
+            }
+        },
+        "R3_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.17729757726192474,
+                "roll": 0.8227024078369141
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.31109392642974854,
+                "roll": 0.6889060735702515
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.35499075055122375,
+                "roll": 0.6450092792510986
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.29099786281585693,
+                "roll": 0.7090021371841431
+            }
+        },
+        "R3_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.4106217622756958,
+                "roll": 0.589378297328949
+            }
+        },
+        "R2_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.4382878243923187,
+                "roll": 0.5617122054100037
+            }
+        },
+        "R2_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.47257000207901,
+                "roll": 0.52742999792099
+            }
+        },
+        "R5_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.6784666776657104,
+                "roll": 0.32153332233428955
+            }
+        },
+        "R4_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.15502265095710754,
+                "roll": 0.8449773192405701
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.44905728101730347,
+                "roll": 0.5509426593780518
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.8415855169296265,
+                "roll": 0.15841451287269592
+            }
+        },
+        "R2_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bomb ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.6036683917045593,
+                "roll": 0.3963316082954407
+            }
+        },
+        "R4_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.5225111842155457,
+                "roll": 0.47748878598213196
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.4323676526546478,
+                "roll": 0.5676323175430298
+            }
+        },
+        "R5_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "soccer ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.041041016578674316,
+                "roll": 0.9589589834213257
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3259948790073395,
+                "roll": 0.6740050911903381
+            }
+        },
+        "R3_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.2669563591480255,
+                "roll": 0.7330436110496521
+            }
+        },
+        "R4_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.0763435885310173,
+                "roll": 0.9236564040184021
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.4234943389892578,
+                "roll": 0.5765056610107422
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_right_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "right",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3487950563430786,
+                "roll": 0.6512049436569214
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.7974688410758972,
+                "roll": 0.20253117382526398
+            }
+        },
+        "R5_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bomb ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.494233638048172,
+                "roll": 0.5057663917541504
+            }
+        },
+        "R3_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "soccer ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.15350407361984253,
+                "roll": 0.8464959263801575
+            }
+        },
+        "R4_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.42341166734695435,
+                "roll": 0.5765883326530457
+            }
+        },
+        "R3_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.17677097022533417,
+                "roll": 0.8232290148735046
+            }
+        },
+        "R2_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_soccer ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "soccer ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.06920956820249557,
+                "roll": 0.9307904243469238
+            }
+        },
+        "R5_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.07862197607755661,
+                "roll": 0.9213780164718628
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3874998390674591,
+                "roll": 0.6125001311302185
+            }
+        },
+        "R2_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.45000728964805603,
+                "roll": 0.5499927401542664
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.2500089108943939,
+                "roll": 0.7499910593032837
+            }
+        },
+        "R3_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.17701654136180878,
+                "roll": 0.8229835033416748
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.4010329842567444,
+                "roll": 0.5989669561386108
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.2355903834104538,
+                "roll": 0.764409601688385
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.32316848635673523,
+                "roll": 0.6768315434455872
+            }
+        },
+        "R4_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.1847841739654541,
+                "roll": 0.8152157664299011
+            }
+        },
+        "R2_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_lightPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.5214440226554871,
+                "roll": 0.47855597734451294
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.2700643837451935,
+                "roll": 0.7299356460571289
+            }
+        },
+        "R4_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.25473326444625854,
+                "roll": 0.7452667951583862
+            }
+        },
+        "R5_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_heavy_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heavy",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.6205494999885559,
+                "roll": 0.3794504702091217
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.22569026052951813,
+                "roll": 0.7743097543716431
+            }
+        },
+        "R2_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3178248107433319,
+                "roll": 0.6821752190589905
+            }
+        },
+        "R4_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_heaviest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "heaviest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.38395923376083374,
+                "roll": 0.6160407662391663
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_noRoll_middleX_middleZ.mp4",
+            "classname": "slide",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can't roll"
+            },
+            "predictions": {
+                "slide": 0.856674313545227,
+                "roll": 0.14332570135593414
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.25348547101020813,
+                "roll": 0.7465145587921143
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.24463537335395813,
+                "roll": 0.7553645968437195
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.45155200362205505,
+                "roll": 0.5484480261802673
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.5445689558982849,
+                "roll": 0.4554310441017151
+            }
+        },
+        "R5_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_hardPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.298153817653656,
+                "roll": 0.7018462419509888
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_farRight_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farRight",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.24560093879699707,
+                "roll": 0.7543990612030029
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_forward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "forward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.40776240825653076,
+                "roll": 0.5922375917434692
+            }
+        },
+        "R5_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_hardestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "hardestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.09065970778465271,
+                "roll": 0.9093403220176697
+            }
+        },
+        "R5_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.688654363155365,
+                "roll": 0.3113456666469574
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_back.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "back",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.2745545208454132,
+                "roll": 0.7254454493522644
+            }
+        },
+        "R5_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R5_bucky ball_lighter_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lighter",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.19262638688087463,
+                "roll": 0.8073736429214478
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farBack.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farBack",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3960144817829132,
+                "roll": 0.6039854884147644
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.28458601236343384,
+                "roll": 0.7154139876365662
+            }
+        },
+        "R4_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_normalPush_normalPhys_left_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "left",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.24138809740543365,
+                "roll": 0.7586118578910828
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.15068021416664124,
+                "roll": 0.8493197560310364
+            }
+        },
+        "R4_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R4_bucky ball_normalMass_lightestPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "lightestPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.3558308780193329,
+                "roll": 0.6441690921783447
+            }
+        },
+        "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4": {
+            "video": "R5_bucky ball_normalMass_normalPush_normalPhys_middleX_farForward.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "farForward",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.29088670015335083,
+                "roll": 0.709113359451294
+            }
+        },
+        "R2_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R2_bucky ball_lightest_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "lightest",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.12185625731945038,
+                "roll": 0.8781437873840332
+            }
+        },
+        "R3_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4": {
+            "video": "R3_bomb ball_normalMass_normalPush_normalPhys_middleX_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bomb ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "middleX",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.552566409111023,
+                "roll": 0.44743356108665466
+            }
+        },
+        "R2_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "R2_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.42613720893859863,
+                "roll": 0.5738627910614014
+            }
+        },
+        "R3_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4": {
+            "video": "R3_bucky ball_normalMass_normalPush_normalPhys_farLeft_middleZ.mp4",
+            "classname": "roll",
+            "concepts": {
+                "shape": "bucky ball",
+                "mass": "normalMass",
+                "velocity": "normalPush",
+                "x": "farLeft",
+                "z": "middleZ",
+                "canRoll": "can roll"
+            },
+            "predictions": {
+                "slide": 0.25678354501724243,
+                "roll": 0.7432164549827576
+            }
+        }
+
+    }
+	
 }

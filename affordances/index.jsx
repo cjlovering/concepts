@@ -216,11 +216,13 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname,
           this.state.videos[this.state.videoB].classname)
       );
+      deltas.sort((a, b) => a["x"] > b["x"])
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
-      y_orig = deltas.map(delta => delta["delta"]);
+      // y_orig = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
     }
+
     const notCurrentClass =  !videoBSelected ? "{Select an Image B}" : this.state.videos[this.state.videoB].classname;
     const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
 
@@ -243,9 +245,9 @@ class App extends React.Component {
 
             },
           ]}
-          layout={{width: 450, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
-            l: 170,
-            r: 5,
+          layout={{width: 525, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
+            l: 245,
+            r: -5,
           },
           xaxis: {range: [-1.0, 1.0], autorange: false,   },
         }}
@@ -308,15 +310,64 @@ function getBarColor(val) {
 }
 
 function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
-  console.log("deltaProbability", videoTo, videoFrom)
+
+  // softPush
+  // bundle.js:1 heavier
+  // bundle.js:1 softestPush
+  // bundle.js:1 middleY
+
+  const lookupFeatureName = {
+    "farLeft":"shifted far left",
+    "left": "shifted left",
+    "middleX": "start at x axis=0",
+    "middleY": "start at y axis=0",
+    "right": "shifted right",
+    "farRight": "shifted far right",
+    "farBack": "shifted far back",
+    "back": "shifted back",
+    "middleZ": "start at z axis=0",
+    "forward": "shifted forward",
+    "farForward": "shifted far forward",
+    "lightest": "lowest mass",
+    "lighter": "low mass",
+    "normalMass": "medium mass",
+    "heavy": "high mass",
+    "heavier": "high mass",
+    "heaviest": "highest mass",
+    "lightestPush": "very gentle push",
+    "lightPush": "gentle push",
+    "normalPush": "medium push",
+    "hardPush": "hard push",
+    "softPush": "soft push",
+    "softestPush": "very soft push",
+    "normalPhys": "normal rolling physics",
+    "noRoll": "angular rotation locked",
+    "rolling": "object 'rounded'",
+    "can't roll": "not round",
+    "can roll": "round",
+    "box":"box",
+    "plate": "plate",
+    "book": "book",
+    "bucky ball": "bucky ball",
+    "soccer ball":"soccer ball",
+    "bomb ball":"bomb ball"
+  }    
   for (const [key, value] of Object.entries(videoTo.concepts)) {
     if (videoFrom.concepts[key] != value) {
       let delta = (videoTo.predictions[classTo] - videoFrom.predictions[classFrom]).toFixed(2);
       if (Math.abs(delta) < 0.05) {
         delta = 0.05;
       }
+      if (!(videoFrom.concepts[key] in lookupFeatureName)) {
+        console.log(videoFrom.concepts[key])
+      }
+      if (!(value in lookupFeatureName)) {
+        console.log(value)
+      }
+      const from = lookupFeatureName[videoFrom.concepts[key]];
+      const to = lookupFeatureName[value];
       return {
-        "x": `${videoFrom.concepts[key]}->${value}`, 
+        "x": `${from}->${to}`, 
         "delta": delta,
         "annotation": (
           `${videoFrom.predictions[classFrom].toFixed(2)}->${videoTo.predictions[classTo].toFixed(2)}` 
