@@ -216,7 +216,20 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname,
           this.state.videos[this.state.videoB].classname)
       );
-      deltas.sort((a, b) => a["key"] > b["key"])
+      console.log("before", deltas)
+      deltas.sort((a, b) => {
+        let fa = a.key.toLowerCase(),
+            fb = b.key.toLowerCase();
+    
+        if (fa < fb) {
+            return -1;
+        }
+        if (fa > fb) {
+            return 1;
+        }
+        return 0;
+      });
+      console.log("deltas", deltas)
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
@@ -246,7 +259,7 @@ class App extends React.Component {
           ]}
           layout={{width: 525, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
             l: 245,
-            r: -5,
+            r: 25,
           },
           xaxis: {range: [-1.0, 1.0], autorange: false,   },
         }}
