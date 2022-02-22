@@ -206,9 +206,8 @@ class App extends React.Component {
     ) : null;
       
     // Move plots into a component
-    let deltas = []; let x = []; let y = []; let y_orig = []; let annotations = [];
+    let deltas = []; let x = []; let y = []; let y_orig = []; let annotations = []; let videos = [];
     if (videoASelected) {
-      console.log(this.state.minimalpairs[this.state.videoA], this.state.videos)
       deltas = this.state.minimalpairs[this.state.videoA].map(
         videoC => deltaProbability(
           this.state.videos[this.state.videoA], 
@@ -216,28 +215,26 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname,
           this.state.videos[this.state.videoB].classname)
       );
-      console.log("before", deltas)
       deltas.sort((a, b) => {
         let fa = a.key.toLowerCase(),
             fb = b.key.toLowerCase();
     
         if (fa < fb) {
-            return -1;
+            return 1;
         }
         if (fa > fb) {
-            return 1;
+            return -1;
         }
         return 0;
       });
-      console.log("deltas", deltas)
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
+      videos = deltas.map(delta => delta["video"]);
     }
 
     const notCurrentClass =  !videoBSelected ? "{Select an Image B}" : this.state.videos[this.state.videoB].classname;
     const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
-
     const deltaOtherPlot = !videoASelected ? null : (
       <div className="card-body">
           <Plot
@@ -248,7 +245,7 @@ class App extends React.Component {
               type: 'bar',
               mode: 'relative',
               orientation: 'h',
-              videos: this.state.minimalpairs[this.state.videoA],
+              videos: videos,
               marker: {
                 color: y.map(getBarColor), // blue if positive, red if negative.
               },
@@ -350,6 +347,7 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
     "lightPush": "gentle push",
     "normalPush": "medium push",
     "hardPush": "hard push",
+    "hardestPush": "very hard push",
     "softPush": "soft push",
     "softestPush": "very soft push",
     "normalPhys": "normal rolling physics",
@@ -363,18 +361,12 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
     "bucky ball": "bucky ball",
     "soccer ball":"soccer ball",
     "bomb ball":"bomb ball"
-  }    
+  };
   for (const [key, value] of Object.entries(videoTo.concepts)) {
     if (videoFrom.concepts[key] != value) {
       let delta = (videoTo.predictions[classTo] - videoFrom.predictions[classFrom]).toFixed(2);
       if (Math.abs(delta) < 0.05) {
         delta = 0.05;
-      }
-      if (!(videoFrom.concepts[key] in lookupFeatureName)) {
-        console.log(videoFrom.concepts[key])
-      }
-      if (!(value in lookupFeatureName)) {
-        console.log(value)
       }
       const from = lookupFeatureName[videoFrom.concepts[key]];
       const to = lookupFeatureName[value];
@@ -384,7 +376,8 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
         "delta": delta,
         "annotation": (
           `${videoFrom.predictions[classFrom].toFixed(2)}->${videoTo.predictions[classTo].toFixed(2)}` 
-        )
+        ),
+        "video": videoTo.video
       }
     }
   }
@@ -443,7 +436,6 @@ class VideoCard extends React.Component {
 
 class ImageMenu extends React.Component {
 render() {
-  console.log("ImageMenu")
   const options = this.props.videos.map(
     (imgname) => (
       <a

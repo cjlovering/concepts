@@ -760,7 +760,7 @@
 	        "concepts": {
 	            "mass": "normalMass",
 		        "x": "middleX",
-		        "z": "middleY",
+		        "z": "middleZ",
 		        "canRoll": "can roll",
 		        "velocity": "normalPush",
 		        "shape": "bomb ball"
