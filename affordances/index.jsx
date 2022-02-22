@@ -36,8 +36,8 @@ class App extends React.Component {
     this.experiments = EXPERIMENTS;
 
     this.updateExperiment = this.updateExperiment.bind(this);
-    this.updateImageA = this.updateImageA.bind(this);
-    this.updateImageB = this.updateImageB.bind(this);
+    this.updateVideoA = this.updateVideoA.bind(this);
+    this.updateVideoB = this.updateVideoB.bind(this);
     this.onDeltaHover = this.onDeltaHover.bind(this);
     this.fixMinimalPairs = this.fixMinimalPairs.bind(this);
   }
@@ -55,7 +55,7 @@ class App extends React.Component {
     this.loadExperiment(experiment);
   }
 
-  updateImageA(event) {
+  updateVideoA(event) {
     const name = event.target.name;
     const classA = this.state.videos[name]["classname"];
 
@@ -71,7 +71,7 @@ class App extends React.Component {
       "videoB": this.state.basics.find(img => this.state.videos[img]["classname"] != classA),
     })
   }
-  updateImageB(event) {
+  updateVideoB(event) {
     const name = event.target.name;
     if (this.state.videoA == name) {
       this.setState({
@@ -156,12 +156,12 @@ class App extends React.Component {
         </div>
       </div>
     );
-    const basicsCardA = <ImageMenu video={this.state.videoA} videos={this.state.basics} videoInfo={this.state.videos} update={this.updateImageA} title={"A"} />;
-    const basicsCardB = <ImageMenu 
+    const basicsCardA = <VideoMenu video={this.state.videoA} videos={this.state.basics} videoInfo={this.state.videos} update={this.updateVideoA} title={"A"} />;
+    const basicsCardB = <VideoMenu 
         video={this.state.videoB}
         videos={this.state.basics.filter(img => this.state.videos[img]["classname"] != this.state.classA)} 
         videoInfo={this.state.videos} 
-        update={this.updateImageB} 
+        update={this.updateVideoB} 
         title={"B"}
       />;
 
@@ -171,7 +171,7 @@ class App extends React.Component {
   
     const videoACard = videoASelected ?  (
       <VideoCard
-      title="Image A"
+      title="Video A"
         classes={this.state.classes}
         predictions={this.state.classes.map(
           classname => this.state.videos[this.state.videoA].predictions[classname]
@@ -183,7 +183,7 @@ class App extends React.Component {
 
     const videoBCard = videoBSelected ? (
       <VideoCard
-        title="Image B"
+        title="Video B"
         classes={this.state.classes}
         predictions={this.state.classes.map(
           classname => this.state.videos[this.state.videoB].predictions[classname]
@@ -233,7 +233,7 @@ class App extends React.Component {
       videos = deltas.map(delta => delta["video"]);
     }
 
-    const notCurrentClass =  !videoBSelected ? "{Select an Image B}" : this.state.videos[this.state.videoB].classname;
+    const notCurrentClass =  !videoBSelected ? "{Select an Video B}" : this.state.videos[this.state.videoB].classname;
     const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
     const deltaOtherPlot = !videoASelected ? null : (
       <div className="card-body">
@@ -434,10 +434,10 @@ class VideoCard extends React.Component {
 }
 
 
-class ImageMenu extends React.Component {
+class VideoMenu extends React.Component {
 render() {
   const options = this.props.videos.map(
-    (imgname) => (
+    (imgname, i) => (
       <a
         className={this.props.video == imgname ? "dropdown-item active" : "dropdown-item"}
         key={imgname}
@@ -445,7 +445,7 @@ render() {
         onClick={this.props.update}
         checked={this.props.video == imgname}
         aria-pressed={this.props.video == imgname}
-      >{this.props.videoInfo[imgname].classname} [{this.props.videoInfo[imgname].concepts.contiguous}, {this.props.videoInfo[imgname].concepts.shape}, {this.props.videoInfo[imgname].concepts.layout}, {this.props.videoInfo[imgname].concepts.stroke}, {this.props.videoInfo[imgname].concepts.color}]</a>
+      >{this.props.videoInfo[imgname].classname} {i}</a>
     )
   );
   const title = this.props.video != UNSET ? this.props.videoInfo[this.props.video].classname : this.props.videos[0];
@@ -453,7 +453,7 @@ render() {
     <div>
       <div className="card-body">
         <p className="card-text">
-          Select Image {this.props.title}.
+          Select Video {this.props.title}.
         </p>
         <div className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
