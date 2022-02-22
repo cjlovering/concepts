@@ -216,10 +216,9 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname,
           this.state.videos[this.state.videoB].classname)
       );
-      deltas.sort((a, b) => a["x"] > b["x"])
+      deltas.sort((a, b) => a["key"] > b["key"])
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
-      // y_orig = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
     }
 
@@ -367,6 +366,7 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
       const from = lookupFeatureName[videoFrom.concepts[key]];
       const to = lookupFeatureName[value];
       return {
+        "key": from,
         "x": `${from}->${to}`, 
         "delta": delta,
         "annotation": (
