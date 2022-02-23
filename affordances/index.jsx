@@ -215,14 +215,53 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname,
           this.state.videos[this.state.videoB].classname)
       );
+
+      const featureName2Position = {
+          "shifted far left": 0,
+          "shifted left": 1,
+          "start at x axis=0": 2,
+          "start at y axis=0": 3,
+          "shifted right": 4,
+          "shifted far right": 5,
+          "shifted far back": 6,
+          "shifted back": 7,
+          "start at z axis=0": 8,
+          "shifted forward": 9,
+          "shifted far forward": 10,
+          "lowest mass": 11,
+          "low mass": 12,
+          "medium mass": 13,
+          "high mass": 14,
+          "higher mass": 15,
+          "highest mass": 16,
+          "very gentle push": 17,
+          "gentle push": 18,
+          "medium push": 19,
+          "very hard push": 20,
+          "hard push": 21,
+          "soft push": 22,
+          "very soft push": 23,
+          "normal rolling physics": 24,
+          "angular rotation locked": 25,
+          "object 'rounded'": 26,
+          "not round": 27,
+          "round": 28,
+          "box": 29,
+          "plate": 30,
+          "book": 31,
+          "bucky ball": 32,
+          "soccer ball": 33,
+          "bomb ball": 34,
+      };
+
       deltas.sort((a, b) => {
         let fa = a.key.toLowerCase(),
             fb = b.key.toLowerCase();
     
-        if (fa < fb) {
+        if (featureName2Position[fa] < featureName2Position[fb]) {
             return 1;
         }
-        if (fa > fb) {
+        if (featureName2Position[fa] > featureName2Position[fb]) {
             return -1;
         }
         return 0;
@@ -371,7 +410,7 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
       const from = lookupFeatureName[videoFrom.concepts[key]];
       const to = lookupFeatureName[value];
       return {
-        "key": from,
+        "key": to,
         "x": `${from}->${to}`, 
         "delta": delta,
         "annotation": (
