@@ -410,7 +410,7 @@ class ImgCard extends React.Component {
             {this.props.title}
           </p>
         {Image(this.props.info.image, this.props.experiment)}
-        <table style={{width: 150}}>
+        <table style={{width: 120}}>
           {tableData}
         </table>
       </div>

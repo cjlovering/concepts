@@ -216,56 +216,56 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname)
       );
 
-      const featureName2Position = {
-          "shifted far left": 0,
-          "shifted left": 1,
-          "start at x axis=0": 2,
-          "start at y axis=0": 3,
-          "shifted right": 4,
-          "shifted far right": 5,
-          "shifted far back": 6,
-          "shifted back": 7,
-          "start at z axis=0": 8,
-          "shifted forward": 9,
-          "shifted far forward": 10,
-          "lowest mass": 11,
-          "low mass": 12,
-          "medium mass": 13,
-          "high mass": 14,
-          "higher mass": 15,
-          "highest mass": 16,
-          "very gentle push": 17,
-          "gentle push": 18,
-          "medium push": 19,
-          "very hard push": 20,
-          "hard push": 21,
-          "soft push": 22,
-          "very soft push": 23,
-          "normal rolling physics": 24,
-          "angular rotation locked": 25,
-          "object 'rounded'": 26,
-          "no rotation": 27, 
-          "rotates about axis": 28,
-          "box": 29,
-          "plate": 30,
-          "book": 31,
-          "bucky ball": 32,
-          "soccer ball": 33,
-          "bomb ball": 34,
-      };
+      // const featureName2Position = {
+      //     "shifted far left": 0,
+      //     "shifted left": 1,
+      //     "start at x axis=0": 2,
+      //     "start at y axis=0": 3,
+      //     "shifted right": 4,
+      //     "shifted far right": 5,
+      //     "shifted far back": 6,
+      //     "shifted back": 7,
+      //     "start at z axis=0": 8,
+      //     "shifted forward": 9,
+      //     "shifted far forward": 10,
+      //     "lowest mass": 11,
+      //     "low mass": 12,
+      //     "medium mass": 13,
+      //     "high mass": 14,
+      //     "higher mass": 15,
+      //     "highest mass": 16,
+      //     "very gentle push": 17,
+      //     "gentle push": 18,
+      //     "medium push": 19,
+      //     "very hard push": 20,
+      //     "hard push": 21,
+      //     "soft push": 22,
+      //     "very soft push": 23,
+      //     "normal rolling physics": 24,
+      //     "angular rotation locked": 25,
+      //     "object 'rounded'": 26,
+      //     "no rotation": 27, 
+      //     "rotates about axis": 28,
+      //     "box": 29,
+      //     "plate": 30,
+      //     "book": 31,
+      //     "bucky ball": 32,
+      //     "soccer ball": 33,
+      //     "bomb ball": 34,
+      // };
 
-      deltas.sort((a, b) => {
-        let fa = a.key.toLowerCase(),
-            fb = b.key.toLowerCase();
+      // deltas.sort((a, b) => {
+      //   let fa = a.key.toLowerCase(),
+      //       fb = b.key.toLowerCase();
     
-        if (featureName2Position[fa] < featureName2Position[fb]) {
-            return 1;
-        }
-        if (featureName2Position[fa] > featureName2Position[fb]) {
-            return -1;
-        }
-        return 0;
-      });
+      //   if (featureName2Position[fa] < featureName2Position[fb]) {
+      //       return 1;
+      //   }
+      //   if (featureName2Position[fa] > featureName2Position[fb]) {
+      //       return -1;
+      //   }
+      //   return 0;
+      // });
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
@@ -323,21 +323,21 @@ class App extends React.Component {
          
         <div className="container">
           <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             {videoACard}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
           {videoBCard}
           </div>
-
+          <div className="col-md-4">
+              {videoCCard}
+          </div>
           </div>
           <div className="row">
           <div className="col-md-6"  style={{padding: "1px", border: "thin solid black"}}>
             {deltaOtherPlot}
           </div>
-          <div className="col-md-6">
-              {videoCCard}
-          </div>
+
           </div>
           <hr />
         </div>
@@ -407,8 +407,8 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
       if (Math.abs(delta) < 0.05) {
         delta = 0.05;
       }
-      const from = lookupFeatureName[videoFrom.concepts[key]];
-      const to = lookupFeatureName[value];
+      const from = videoFrom.concepts[key] // lookupFeatureName[videoFrom.concepts[key]];
+      const to = value // lookupFeatureName[value];
       return {
         "key": to,
         "x": `${from}->${to}`, 
@@ -428,11 +428,11 @@ function formatVideoPath(video, experiment) {
 }
 
 function Video(video, experiment) {
+  // data-toggle="tooltip" data-placement="left" 
+  //"padding": "1px", "border": "thin solid black"
   return (
-    <div style={{"overflow": "hidden", "padding": "1px", "border": "thin solid black"}}>
-      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"1000px"} data-toggle="tooltip" data-placement="left" style={{
-        marginTop: "-20%", marginLeft: "-45%", marginBottom: "-20%"
-        }}/>
+    <div style={{}}> 
+      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"275px"}/> 
     </div>
   );
 }
@@ -440,22 +440,73 @@ function Video(video, experiment) {
 class VideoCard extends React.Component {
   render() {
     const zip = (a, b) => a.map((k, i) => [k, b[i]]);
-    const tableData = zip(this.props.classes, this.props.predictions).map(
-      ([classname, prediction], index) => {
-        let color;
-        if (prediction > 0.5) {
-          color = "#14c523";
+    
+    const pairs = a => zip(a.slice(a.length / 2), a.slice(-a.length / 2))
+
+    console.log(this.props.classes.slice(this.props.classes.length / 2), this.props.classes.slice(-this.props.classes.length / 2))
+    console.log(zip(this.props.classes, this.props.predictions))
+    console.log(pairs(zip(this.props.classes, this.props.predictions)))
+
+
+
+    let zipped = zip(this.props.classes, this.props.predictions)
+    let out = []
+    let curr = []
+    for (let i = 0; i < zipped.length; i++) {
+      curr.push(zipped[i])
+      if (i > 0 && i % 2 == 1) {
+        out.push(curr);
+        curr = [];
+      } else if (i == zipped.length-1 && zipped.lenth % 2 != 0) {
+        curr.push([null, null]);
+        out.push(curr)
+      }
+    }
+    const tableData = out.map(
+      ([[classname, prediction], [classname2, prediction2]], index) => {
+        let correct_color = "#14c523";
+        let wrong_color = "#D44458";
+        let maybe_color = "#FFA500";
+
+
+        let cols = []
+        console.log(classname, prediction, classname2, prediction2)
+        if ((classname == this.props.info.classname) & prediction > 0.5) {
+          cols.push(
+            <td key={index} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+        } else if ((classname == this.props.info.classname) & prediction <= 0.5) {
+          cols.push(
+            <td key={index} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+        } else if (prediction > 0.5) {
+          cols.push(
+            <td key={index} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
         } else {
-          color = "#D44458";
+          cols.push(<td  style={{padding: "5px 10px",color: "black"}}>{classname}</td>, 
+                  <td style={{padding: "5px 10px",color: "black"}}>{prediction.toFixed(2)}</td>)
         }
-        if (classname == this.props.info.classname) {
-          return <tr key={index}> 
-            <td style={{color: color, fontWeight: "bold"}}>{classname}</td> 
-            <td style={{color: color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>
-          </tr>
-        } else {
-          return <tr key={index}> <td  style={{color: "black"}}>{classname}</td> <td>{prediction.toFixed(2)}</td></tr>
-        }
+
+        if (classname2 != null) {
+          if ((classname2 == this.props.info.classname) & prediction2 > 0.5) {
+            cols.push(
+              <td key={index * 1000 + 1000} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+          } else if ((classname2 == this.props.info.classname) & prediction2 <= 0.5) {
+            cols.push(
+              <td key={index* 1000 + 1000} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+          } else if (prediction2 > 0.5) {
+            cols.push(
+              <td key={index* 1000 + 1000} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+          } else {
+            cols.push(<td key={index* 1000 + 100000} style={{padding: "5px 10px",color: "black"}}>{classname2}</td>, <td style={{padding: "5px 10px",color: "black"}}>{prediction2.toFixed(2)}</td>)
+          }
+      }
+        console.log(cols)
+        return <tr key={index* 1000 + 200000}> {cols} </tr>;
       }
     )
     return (
