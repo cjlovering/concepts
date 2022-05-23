@@ -216,56 +216,40 @@ class App extends React.Component {
           this.state.videos[this.state.videoB].classname)
       );
 
-      // const featureName2Position = {
-      //     "shifted far left": 0,
-      //     "shifted left": 1,
-      //     "start at x axis=0": 2,
-      //     "start at y axis=0": 3,
-      //     "shifted right": 4,
-      //     "shifted far right": 5,
-      //     "shifted far back": 6,
-      //     "shifted back": 7,
-      //     "start at z axis=0": 8,
-      //     "shifted forward": 9,
-      //     "shifted far forward": 10,
-      //     "lowest mass": 11,
-      //     "low mass": 12,
-      //     "medium mass": 13,
-      //     "high mass": 14,
-      //     "higher mass": 15,
-      //     "highest mass": 16,
-      //     "very gentle push": 17,
-      //     "gentle push": 18,
-      //     "medium push": 19,
-      //     "very hard push": 20,
-      //     "hard push": 21,
-      //     "soft push": 22,
-      //     "very soft push": 23,
-      //     "normal rolling physics": 24,
-      //     "angular rotation locked": 25,
-      //     "object 'rounded'": 26,
-      //     "no rotation": 27, 
-      //     "rotates about axis": 28,
-      //     "box": 29,
-      //     "plate": 30,
-      //     "book": 31,
-      //     "bucky ball": 32,
-      //     "soccer ball": 33,
-      //     "bomb ball": 34,
-      // };
+      const featureName2Position = {
+        'NoRotation': 1,
+        'OffsetX': 2,
+        'OffsetY': 3,
+        'OffsetZ': 4,
+        'LowForce': 5,
+        'HighForce': 6,
+        'NoDeltaX': 7,
+        'SmallDeltaX': 8,
+        'MedDeltaX': 9,
+        'LargeDeltaX': 10,
+        'NoDeltaY': 11,
+        'SmallDeltaY': 12,
+        'MedDeltaY': 13,
+        'LargeDeltaY': 14,
+        'NoDeltaZ': 15,
+        'SmallDeltaZ': 16,
+        'MedDeltaZ': 17,
+        'LargeDeltaZ': 18,       
+        'unchanged': 19,
+      };
 
-      // deltas.sort((a, b) => {
-      //   let fa = a.key.toLowerCase(),
-      //       fb = b.key.toLowerCase();
+      deltas.sort((a, b) => {
+        let fa = a.key,
+            fb = b.key;
     
-      //   if (featureName2Position[fa] < featureName2Position[fb]) {
-      //       return 1;
-      //   }
-      //   if (featureName2Position[fa] > featureName2Position[fb]) {
-      //       return -1;
-      //   }
-      //   return 0;
-      // });
+        if (featureName2Position[fa] < featureName2Position[fb]) {
+            return 1;
+        }
+        if (featureName2Position[fa] > featureName2Position[fb]) {
+            return -1;
+        }
+        return 0;
+      });
       x = deltas.map(delta => delta["x"]);
       y = deltas.map(delta => delta["delta"]);
       annotations = deltas.map(delta => delta["annotation"]);
@@ -364,43 +348,6 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
   // bundle.js:1 softestPush
   // bundle.js:1 middleY
 
-  const lookupFeatureName = {
-    "farLeft":"shifted far left",
-    "left": "shifted left",
-    "middleX": "start at x axis=0",
-    "middleY": "start at y axis=0",
-    "right": "shifted right",
-    "farRight": "shifted far right",
-    "farBack": "shifted far back",
-    "back": "shifted back",
-    "middleZ": "start at z axis=0",
-    "forward": "shifted forward",
-    "farForward": "shifted far forward",
-    "lightest": "lowest mass",
-    "lighter": "low mass",
-    "normalMass": "medium mass",
-    "heavy": "high mass",
-    "heavier": "high mass",
-    "heaviest": "highest mass",
-    "lightestPush": "very gentle push",
-    "lightPush": "gentle push",
-    "normalPush": "medium push",
-    "hardPush": "hard push",
-    "hardestPush": "very hard push",
-    "softPush": "soft push",
-    "softestPush": "very soft push",
-    "normalPhys": "normal rolling physics",
-    "noRoll": "angular rotation locked",
-    "rolling": "object 'rounded'",
-    "can't roll": "no rotation",
-    "can roll": "rotates about axis",
-    "box":"box",
-    "plate": "plate",
-    "book": "book",
-    "bucky ball": "bucky ball",
-    "soccer ball":"soccer ball",
-    "bomb ball":"bomb ball"
-  };
   for (const [key, value] of Object.entries(videoTo.concepts)) {
     if (videoFrom.concepts[key] != value) {
       let delta = (videoTo.predictions[classTo] - videoFrom.predictions[classFrom]).toFixed(2);
@@ -409,9 +356,17 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
       }
       const from = videoFrom.concepts[key] // lookupFeatureName[videoFrom.concepts[key]];
       const to = value // lookupFeatureName[value];
+
+      let x;
+      if (from == "unchanged") {
+        x = to;
+      } else {
+        x = `${from}->${to}`;
+      }
+
       return {
         "key": to,
-        "x": `${from}->${to}`, 
+        "x": x, 
         "delta": delta,
         "annotation": (
           `${videoFrom.predictions[classFrom].toFixed(2)}->${videoTo.predictions[classTo].toFixed(2)}` 
