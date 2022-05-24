@@ -21,6 +21,7 @@ class App extends React.Component {
       classes: [],
       // List of all base videos (options for video A)
       basics: [],
+      basicsLookUp: {'': ''},
       // Minimal pairs.
       minimalpairs: [],
 
@@ -32,6 +33,7 @@ class App extends React.Component {
       // Secondary (right) video that serves as a minimal difference.
       videoB: UNSET,
       videoC: UNSET,
+      videoCName: UNSET
     };
     this.experiments = EXPERIMENTS;
 
@@ -57,18 +59,25 @@ class App extends React.Component {
 
   updateVideoA(event) {
     const name = event.target.name;
-    const classA = this.state.videos[name]["classname"];
+    const lookupName = this.state.basicsLookUp[name];
+    const classA = this.state.videos[lookupName]["classname"];
 
     if (this.state.videoB == name) {
       // Swap.
       this.setState({
         "videoB": UNSET,
+        "videoC": UNSET,
+        "videoCName": UNSET
+
       })
     }
+
     this.setState({
       "videoA": name,
       "classA": classA,
-      "videoB": this.state.basics.find(img => this.state.videos[img]["classname"] != classA),
+      "videoB": this.state.basics.find(img => this.state.videos[this.state.basicsLookUp[img]]["classname"] != classA),
+      "videoC": UNSET,
+      "videoCName": UNSET
     })
   }
   updateVideoB(event) {
@@ -87,8 +96,11 @@ class App extends React.Component {
   onDeltaHover(event) {
     const pointIndex = event.points[0].pointIndex;
     const videoC = event.points[0].data.videos[pointIndex];
+    const videoCName = event.points[0].data.y[pointIndex];
+    console.log("onDeltaHover", event.points[0], event)
     this.setState({
-      videoC: videoC
+      videoC: videoC,
+      videoCName: videoCName 
     })
   }
 
@@ -96,28 +108,49 @@ class App extends React.Component {
     d3.json(`${experiment}/experiment.json`).then(
       (data) => {
         const classA = data["videos"][data["basics"][0]]["classname"];
-        for (let val of Object.values(data.videos)) {
-          val["predictions"]["splatter"] = 0.0
+
+        let basics = data["basics"];
+        let extendedBasics = [];
+        let basicsLookUp = {};
+
+        for (let i = 0; i < basics.length; i++) {
+          let videoName = basics[i];
+          let video = data["videos"][videoName]
+          let classifications = [];
+
+          for (let k in video.predictions) {
+            if (video.predictions[k] > 0.75) {
+              classifications.push(k);
+            }
+          }
+          // let out = "";
+          // for (let k in classifications) {
+          //   let classification = classifications[k];
+          //   extendedBasics.push(`${classification} - ${videoName}`)
+          //   basicsLookUp[`${classification} - ${videoName}`] = videoName;
+          // }
+          let exampleName = `${classifications.join("/")} - ${i}`;
+          extendedBasics.push(exampleName);
+          basicsLookUp[exampleName] = videoName;
         }
         this.setState(
           {
             experiment: experiment,
             classes: Object.keys(data['classes']),
             videos: data["videos"],
-            basics: data["basics"],
+            basics: extendedBasics,
+            basicsLookUp: basicsLookUp,
             minimalpairs: this.fixMinimalPairs(data["minimalpairs"]),
             classname: UNSET,
-            videoA: data["basics"][0],
-            videoB: data["basics"].find(img => data["videos"][img]["classname"] != classA),
+            videoA: extendedBasics[0],
+            videoB: extendedBasics.find(img => data["videos"][basicsLookUp[img]]["classname"] != classA),
             classA: classA,
             videoC: UNSET
           }
         )
-
       }
     );
   }
-
   fixMinimalPairs(minimalpairs) {
     let out = {}
     for (const [key, value] of Object.entries(minimalpairs)) {
@@ -127,6 +160,14 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.experiment == UNSET){
+      return (<div className="card-body">
+          <p className="card-text">
+          Loading...
+          </p>
+      </div>
+      );
+    }
     const experiments = this.experiments.map(
       (experiment) => (
         <a
@@ -156,12 +197,21 @@ class App extends React.Component {
         </div>
       </div>
     );
-    const basicsCardA = <VideoMenu video={this.state.videoA} videos={this.state.basics} videoInfo={this.state.videos} update={this.updateVideoA} title={"A"} />;
+    const basicsCardA = <VideoMenu 
+      video={this.state.videoA} 
+      videos={this.state.basics}
+      videoInfo={this.state.videos} 
+      basicsLookUp={this.state.basicsLookUp}
+      update={this.updateVideoA} 
+      title={"A"} 
+    />;
     const basicsCardB = <VideoMenu 
         video={this.state.videoB}
-        videos={this.state.basics.filter(img => this.state.videos[img]["classname"] != this.state.classA)} 
+        videos={this.state.basics.filter(img => 
+          this.state.videos[this.state.basicsLookUp[img]]["classname"] != this.state.classA )} 
         videoInfo={this.state.videos} 
         update={this.updateVideoB} 
+        basicsLookUp={this.state.basicsLookUp}
         title={"B"}
       />;
 
@@ -169,38 +219,41 @@ class App extends React.Component {
     const videoBSelected = this.state.videoB != UNSET;
     const videoCSelected = this.state.videoC != UNSET;
   
+    const videoAInfo = videoASelected ?  (this.state.videos[this.state.basicsLookUp[this.state.videoA]]) : null;
     const videoACard = videoASelected ?  (
       <VideoCard
-      title="Video A"
-        classes={this.state.classes}
+      title={`Video A: ${this.state.videoA.split(" ")[0]}`}
+      classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.videos[this.state.videoA].predictions[classname]
+          classname => videoAInfo.predictions[classname]
         )}
-        info={this.state.videos[this.state.videoA]}
+        info={videoAInfo}
         experiment={this.state.experiment}
       />
     ) : null;
-
+    const videoBInfo =  videoBSelected ? (
+      this.state.videos[this.state.basicsLookUp[this.state.videoB]]
+    ) : null;
     const videoBCard = videoBSelected ? (
       <VideoCard
-        title="Video B"
+        title={`Video B: ${this.state.videoB.split(" ")[0]}`}
         classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.videos[this.state.videoB].predictions[classname]
+          classname => videoBInfo.predictions[classname]
         )}
-        info={this.state.videos[this.state.videoB]}
+        info={videoBInfo}
         experiment={this.state.experiment}
       />
     ) : null;
-
+    const videoCInfo = videoCSelected ? ( this.state.videos[this.state.videoC] ) : null;
     const videoCCard = videoCSelected ? (
       <VideoCard
-        title="Counterfactual(A)"
+        title={`Counterfactual(A): ${this.state.videoCName}`}
         classes={this.state.classes}
         predictions={this.state.classes.map(
-          classname => this.state.videos[this.state.videoC].predictions[classname]
+          classname => videoCInfo.predictions[classname]
         )}
-        info={this.state.videos[this.state.videoC]}
+        info={videoCInfo}
         experiment={this.state.experiment}
       />
     ) : null;
@@ -208,12 +261,12 @@ class App extends React.Component {
     // Move plots into a component
     let deltas = []; let x = []; let y = []; let y_orig = []; let annotations = []; let videos = [];
     if (videoASelected) {
-      deltas = this.state.minimalpairs[this.state.videoA].map(
+      deltas = this.state.minimalpairs[this.state.basicsLookUp[this.state.videoA]].map(
         videoC => deltaProbability(
-          this.state.videos[this.state.videoA], 
+          this.state.videos[this.state.basicsLookUp[this.state.videoA]], 
           this.state.videos[videoC],
-          this.state.videos[this.state.videoB].classname,
-          this.state.videos[this.state.videoB].classname)
+          this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname,
+          this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname)
       );
 
       const featureName2Position = {
@@ -256,7 +309,7 @@ class App extends React.Component {
       videos = deltas.map(delta => delta["video"]);
     }
 
-    const notCurrentClass =  !videoBSelected ? "{Select an Video B}" : this.state.videos[this.state.videoB].classname;
+    const notCurrentClass =  !videoBSelected ? "{Select an Video B}" : this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname;
     const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
     const deltaOtherPlot = !videoASelected ? null : (
       <div className="card-body">
@@ -277,11 +330,11 @@ class App extends React.Component {
 
             },
           ]}
-          layout={{width: 525, height: 600, title: `Change in probability that A is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
-            l: 245,
-            r: 25,
+          layout={{width: 300, height: 550, title: `Change in P(A) is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
+            l: 100,
+            r: 0,
           },
-          xaxis: {range: [-1.0, 1.0], autorange: false,   },
+          xaxis: {range: [-1.0, 1.0], autorange: false, autosize: false   },
         }}
           onHover={this.onDeltaHover}
         />
@@ -292,13 +345,9 @@ class App extends React.Component {
       <div>
         <div className="container">
           <div className="row">
-            <div className="col-md-2">
+            <div class="btn-group">
               {basicsCardA}
-            </div>
-            <div className="col-md-2">
               {basicsCardB}
-            </div>
-            <div className="col-md-2">
               {experimentCard}
             </div>
           </div>
@@ -307,21 +356,20 @@ class App extends React.Component {
          
         <div className="container">
           <div className="row">
-          <div className="col-md-4">
-            {videoACard}
-          </div>
-          <div className="col-md-4">
-          {videoBCard}
-          </div>
-          <div className="col-md-4">
-              {videoCCard}
-          </div>
-          </div>
-          <div className="row">
-          <div className="col-md-6"  style={{padding: "1px", border: "thin solid black"}}>
-            {deltaOtherPlot}
-          </div>
-
+            <div className="col-md-2">
+              {videoACard}
+            </div>
+            <div className="col-md-2">
+              {videoBCard}
+            </div>
+            <div className="col-md-2">
+                {videoCCard}
+            </div>
+            <div className="col-md-1">
+            </div>
+            <div className="col-md-4"  style={{padding: "1px", border: "thin solid black"}}>
+              {deltaOtherPlot}
+            </div>
           </div>
           <hr />
         </div>
@@ -329,7 +377,13 @@ class App extends React.Component {
     )
   }
 }
-
+{/* <div className="row">
+<div className="col-md-2">
+</div>
+<div className="col-md-3"  style={{padding: "1px", border: "thin solid black"}}>
+{deltaOtherPlot}
+</div>
+</div> */}
 function getBarColor(val) {
   if (Math.abs(val) <= 0.05) {
     return "#ff8c00"
@@ -347,7 +401,6 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
   // bundle.js:1 heavier
   // bundle.js:1 softestPush
   // bundle.js:1 middleY
-
   for (const [key, value] of Object.entries(videoTo.concepts)) {
     if (videoFrom.concepts[key] != value) {
       let delta = (videoTo.predictions[classTo] - videoFrom.predictions[classFrom]).toFixed(2);
@@ -359,11 +412,10 @@ function deltaProbability(videoFrom, videoTo, classFrom, classTo) {
 
       let x;
       if (from == "unchanged") {
-        x = to;
+        x = to.replace("Delta", "Δ");
       } else {
         x = `${from}->${to}`;
       }
-
       return {
         "key": to,
         "x": x, 
@@ -387,7 +439,7 @@ function Video(video, experiment) {
   //"padding": "1px", "border": "thin solid black"
   return (
     <div style={{}}> 
-      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"275px"}/> 
+      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"175px"}/> 
     </div>
   );
 }
@@ -395,15 +447,6 @@ function Video(video, experiment) {
 class VideoCard extends React.Component {
   render() {
     const zip = (a, b) => a.map((k, i) => [k, b[i]]);
-    
-    const pairs = a => zip(a.slice(a.length / 2), a.slice(-a.length / 2))
-
-    console.log(this.props.classes.slice(this.props.classes.length / 2), this.props.classes.slice(-this.props.classes.length / 2))
-    console.log(zip(this.props.classes, this.props.predictions))
-    console.log(pairs(zip(this.props.classes, this.props.predictions)))
-
-
-
     let zipped = zip(this.props.classes, this.props.predictions)
     let out = []
     let curr = []
@@ -425,52 +468,51 @@ class VideoCard extends React.Component {
 
 
         let cols = []
-        console.log(classname, prediction, classname2, prediction2)
-        if ((classname == this.props.info.classname) & prediction > 0.5) {
+        let padding = "3px 5px";
+        if ((classname == this.props.info.classname) & prediction > 0.75) {
           cols.push(
-            <td key={index} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{classname}</td>,
-            <td key={index+100} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
-        } else if ((classname == this.props.info.classname) & prediction <= 0.5) {
+            <td key={index} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+        } else if ((classname == this.props.info.classname) & prediction <= 0.75) {
           cols.push(
-            <td key={index} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{classname}</td>,
-            <td key={index+100} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
-        } else if (prediction > 0.5) {
+            <td key={index} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+        } else if (prediction > 0.75) {
           cols.push(
-            <td key={index} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{classname}</td>,
-            <td key={index+100} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+            <td key={index} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname}</td>,
+            <td key={index+100} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
         } else {
-          cols.push(<td  style={{padding: "5px 10px",color: "black"}}>{classname}</td>, 
-                  <td style={{padding: "5px 10px",color: "black"}}>{prediction.toFixed(2)}</td>)
+          cols.push(<td  style={{padding: padding,color: "black"}}>{classname}</td>, 
+                  <td style={{padding: padding,color: "black"}}>{prediction.toFixed(2)}</td>)
         }
 
         if (classname2 != null) {
-          if ((classname2 == this.props.info.classname) & prediction2 > 0.5) {
+          if ((classname2 == this.props.info.classname) & prediction2 > 0.75) {
             cols.push(
-              <td key={index * 1000 + 1000} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{classname2}</td>,
-              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: correct_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
-          } else if ((classname2 == this.props.info.classname) & prediction2 <= 0.5) {
+              <td key={index * 1000 + 1000} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+          } else if ((classname2 == this.props.info.classname) & prediction2 <= 0.75) {
             cols.push(
-              <td key={index* 1000 + 1000} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{classname2}</td>,
-              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: wrong_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
-          } else if (prediction2 > 0.5) {
+              <td key={index* 1000 + 1000} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+          } else if (prediction2 > 0.75) {
             cols.push(
-              <td key={index* 1000 + 1000} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{classname2}</td>,
-              <td key={index* 1000 + 100000} style={{padding: "5px 10px",color: maybe_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+              <td key={index* 1000 + 1000} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
           } else {
-            cols.push(<td key={index* 1000 + 100000} style={{padding: "5px 10px",color: "black"}}>{classname2}</td>, <td style={{padding: "5px 10px",color: "black"}}>{prediction2.toFixed(2)}</td>)
+            cols.push(<td key={index* 1000 + 100000} style={{padding: padding,color: "black"}}>{classname2}</td>, <td style={{padding: padding,color: "black"}}>{prediction2.toFixed(2)}</td>)
           }
       }
-        console.log(cols)
         return <tr key={index* 1000 + 200000}> {cols} </tr>;
       }
     )
     return (
       <div className="card-body">
-          <p className="card-text">
+          <p className="card-text" style={{width: 110, wordWrap: "normal"}}>
             {this.props.title}
           </p>
         {Video(this.props.info.video, this.props.experiment)}
-        <table style={{width: 150}}>
+        <table style={{width: 150, fontSize: "0.7rem"}}>
           {tableData}
         </table>
       </div>
@@ -480,37 +522,39 @@ class VideoCard extends React.Component {
 
 
 class VideoMenu extends React.Component {
-render() {
-  const options = this.props.videos.map(
-    (imgname, i) => (
-      <a
-        className={this.props.video == imgname ? "dropdown-item active" : "dropdown-item"}
-        key={imgname}
-        name={imgname}
-        onClick={this.props.update}
-        checked={this.props.video == imgname}
-        aria-pressed={this.props.video == imgname}
-      >{this.props.videoInfo[imgname].classname} {i}</a>
-    )
-  );
-  const title = this.props.video != UNSET ? this.props.videoInfo[this.props.video].classname : this.props.videos[0];
-  return (
-    <div>
-      <div className="card-body">
-        <p className="card-text">
-          Select Video {this.props.title}.
-        </p>
-        <div className="dropdown">
-          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {title}
-          </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {options}
+  render() {
+    const options = this.props.videos.map(
+      (imgname, i) => (
+        <a
+          className={this.props.video == imgname ? "dropdown-item active" : "dropdown-item"}
+          key={imgname}
+          name={imgname}
+          onClick={this.props.update}
+          checked={this.props.video == imgname}
+          aria-pressed={this.props.video == imgname}
+        >{imgname}</a>
+      )// this.props.videoInfo[this.props.basicsLookUp[this.props.video]].classname
+    );
+    let title = this.props.video != UNSET ? this.props.video : this.props.videos[0];
+    title = title.replace(".mp4", "");
+    title = title.replace("_None", "").split(" ")[0];
+    return (
+      <div>
+        <div className="card-body">
+          <p className="card-text">
+            Select Video {this.props.title}.
+          </p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {title}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {options}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
 }
 
