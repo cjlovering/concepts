@@ -329,7 +329,7 @@ class App extends React.Component {
 
             },
           ]}
-          layout={{width: 300, height: 550, title: `Change in P(A) is a ${this.state.videoB}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
+          layout={{width: 400, height: 525, title: `Change in P(A) is a ${this.state.videoB}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
             l: 100,
             r: 0,
           },
@@ -355,18 +355,13 @@ class App extends React.Component {
          
         <div className="container">
           <div className="row">
-            <div className="col-md-2">
+            <div className="col-md-3">
               {videoACard}
             </div>
-            {/* <div className="col-md-2">
-              {videoBCard}
-            </div> */}
-            <div className="col-md-2">
+            <div className="col-md-3">
                 {videoCCard}
             </div>
-            <div className="col-md-1">
-            </div>
-            <div className="col-md-4"  style={{padding: "1px", border: "thin solid black"}}>
+            <div className="col-md-5"  style={{padding: "1px", border: "thin solid black"}}>
               {deltaOtherPlot}
             </div>
           </div>
@@ -438,7 +433,7 @@ function Video(video, experiment) {
   //"padding": "1px", "border": "thin solid black"
   return (
     <div style={{}}> 
-      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"175px"}/> 
+      <video src={formatVideoPath(video, experiment)} autoPlay muted loop width={"210px"}/> 
     </div>
   );
 }
@@ -461,8 +456,8 @@ class VideoCard extends React.Component {
     }
     const tableData = out.map(
       ([[classname, prediction], [classname2, prediction2]], index) => {
-        let correct_color = "#14c523";
-        let wrong_color = "#D44458";
+        let correct_color = "#FFA500";
+        let wrong_color = "black";
         let maybe_color = "#FFA500";
 
 
@@ -474,8 +469,8 @@ class VideoCard extends React.Component {
             <td key={index+100} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
         } else if ((classname == this.props.info.classname) & prediction <= 0.75) {
           cols.push(
-            <td key={index} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{classname}</td>,
-            <td key={index+100} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
+            <td key={index} style={{padding: padding,color: wrong_color}}>{classname}</td>,
+            <td key={index+100} style={{padding: padding,color: wrong_color}}>{prediction.toFixed(2)}</td>)
         } else if (prediction > 0.75) {
           cols.push(
             <td key={index} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname}</td>,
@@ -492,8 +487,8 @@ class VideoCard extends React.Component {
               <td key={index* 1000 + 100000} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
           } else if ((classname2 == this.props.info.classname) & prediction2 <= 0.75) {
             cols.push(
-              <td key={index* 1000 + 1000} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{classname2}</td>,
-              <td key={index* 1000 + 100000} style={{padding: padding,color: wrong_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
+              <td key={index* 1000 + 1000} style={{padding: padding,color: wrong_color}}>{classname2}</td>,
+              <td key={index* 1000 + 100000} style={{padding: padding,color: wrong_color}}>{prediction2.toFixed(2)}</td>)
           } else if (prediction2 > 0.75) {
             cols.push(
               <td key={index* 1000 + 1000} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname2}</td>,
@@ -511,7 +506,7 @@ class VideoCard extends React.Component {
             {this.props.title}
           </p>
         {Video(this.props.info.video, this.props.experiment)}
-        <table style={{width: 150, fontSize: "0.7rem"}}>
+        <table style={{width: 150, fontSize: "0.9rem"}}>
           {tableData}
         </table>
       </div>
@@ -577,7 +572,7 @@ class ConceptsMenu extends React.Component {
       <div>
         <div className="card-body">
           <p className="card-text">
-            Select Video {this.props.title}.
+            Select Target Class.
           </p>
           <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
