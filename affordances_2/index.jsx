@@ -75,7 +75,7 @@ class App extends React.Component {
     this.setState({
       "videoA": name,
       "classA": classA,
-      "videoB": this.state.basics.find(img => this.state.videos[this.state.basicsLookUp[img]]["classname"] != classA),
+      "videoB": this.state.classes[0],
       "videoC": UNSET,
       "videoCName": UNSET
     })
@@ -143,7 +143,7 @@ class App extends React.Component {
             minimalpairs: this.fixMinimalPairs(data["minimalpairs"]),
             classname: UNSET,
             videoA: extendedBasics[0],
-            videoB: extendedBasics.find(img => data["videos"][basicsLookUp[img]]["classname"] != classA),
+            videoB: Object.keys(data['classes'])[0], // extendedBasics.find(img => data["videos"][basicsLookUp[img]]["classname"] != classA),
             classA: classA,
             videoC: UNSET
           }
@@ -205,11 +205,9 @@ class App extends React.Component {
       update={this.updateVideoA} 
       title={"A"} 
     />;
-    const basicsCardB = <VideoMenu 
+    const basicsCardB = <ConceptsMenu 
         video={this.state.videoB}
-        videos={this.state.basics.filter(img => 
-          this.state.videos[this.state.basicsLookUp[img]]["classname"] != this.state.classA )} 
-        videoInfo={this.state.videos} 
+        concepts={this.state.classes} 
         update={this.updateVideoB} 
         basicsLookUp={this.state.basicsLookUp}
         title={"B"}
@@ -231,20 +229,21 @@ class App extends React.Component {
         experiment={this.state.experiment}
       />
     ) : null;
-    const videoBInfo =  videoBSelected ? (
-      this.state.videos[this.state.basicsLookUp[this.state.videoB]]
-    ) : null;
-    const videoBCard = videoBSelected ? (
-      <VideoCard
-        title={`Video B: ${this.state.videoB.split(" ")[0]}`}
-        classes={this.state.classes}
-        predictions={this.state.classes.map(
-          classname => videoBInfo.predictions[classname]
-        )}
-        info={videoBInfo}
-        experiment={this.state.experiment}
-      />
-    ) : null;
+    // const videoBInfo =  videoBSelected ? (
+    //   this.state.videos[this.state.basicsLookUp[this.state.videoB]]
+    // ) : null;
+    // const videoBCard = videoBSelected ? (
+    //   <VideoCard
+    //     title={`Video B: ${this.state.videoB.split(" ")[0]}`}
+    //     classes={this.state.classes}
+    //     predictions={this.state.classes.map(
+    //       classname => videoBInfo.predictions[classname]
+    //     )}
+    //     info={videoBInfo}
+    //     experiment={this.state.experiment}
+    //   />
+    // ) : null;
+
     const videoCInfo = videoCSelected ? ( this.state.videos[this.state.videoC] ) : null;
     const videoCCard = videoCSelected ? (
       <VideoCard
@@ -265,8 +264,8 @@ class App extends React.Component {
         videoC => deltaProbability(
           this.state.videos[this.state.basicsLookUp[this.state.videoA]], 
           this.state.videos[videoC],
-          this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname,
-          this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname)
+          this.state.videoB,
+          this.state.videoB)
       );
 
       const featureName2Position = {
@@ -309,7 +308,7 @@ class App extends React.Component {
       videos = deltas.map(delta => delta["video"]);
     }
 
-    const notCurrentClass =  !videoBSelected ? "{Select an Video B}" : this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname;
+    // const notCurrentClass =  !videoBSelected ? "{Select an Video B}" : this.state.videos[this.state.basicsLookUp[this.state.videoB]].classname;
     const message = y.find(y => Math.abs(y) < 0.01) !== undefined ?   <div class="alert alert-warning" role="alert">When there is no change in probability, the corresponding bar is not visible.</div> : "";
     const deltaOtherPlot = !videoASelected ? null : (
       <div className="card-body">
@@ -330,7 +329,7 @@ class App extends React.Component {
 
             },
           ]}
-          layout={{width: 300, height: 550, title: `Change in P(A) is a ${notCurrentClass}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
+          layout={{width: 300, height: 550, title: `Change in P(A) is a ${this.state.videoB}`, margin: {  //Pr(Name(B) | counterfactual(A)) - Pr(Name(B) |  A) 
             l: 100,
             r: 0,
           },
@@ -359,9 +358,9 @@ class App extends React.Component {
             <div className="col-md-2">
               {videoACard}
             </div>
-            <div className="col-md-2">
+            {/* <div className="col-md-2">
               {videoBCard}
-            </div>
+            </div> */}
             <div className="col-md-2">
                 {videoCCard}
             </div>
@@ -559,6 +558,40 @@ class VideoMenu extends React.Component {
 }
 
 
+class ConceptsMenu extends React.Component {
+  render() {
+    const options = this.props.concepts.map(
+      (imgname, i) => (
+        <a
+          className={this.props.video == imgname ? "dropdown-item active" : "dropdown-item"}
+          key={imgname}
+          name={imgname}
+          onClick={this.props.update}
+          checked={this.props.video == imgname}
+          aria-pressed={this.props.video == imgname}
+        >{imgname}</a>
+      )// this.props.videoInfo[this.props.basicsLookUp[this.props.video]].classname
+    );
+    let title = this.props.video != UNSET ? this.props.video : this.props.videos[0];
+    return (
+      <div>
+        <div className="card-body">
+          <p className="card-text">
+            Select Video {this.props.title}.
+          </p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {title}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {options}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 const domContainer = document.querySelector('#entry');
 
 ReactDOM.render(
