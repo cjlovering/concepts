@@ -33,7 +33,8 @@ class App extends React.Component {
       // Secondary (right) video that serves as a minimal difference.
       videoB: UNSET,
       videoC: UNSET,
-      videoCName: UNSET
+      videoCName: UNSET,
+      threshold: 0.75,
     };
     this.experiments = EXPERIMENTS;
 
@@ -42,6 +43,7 @@ class App extends React.Component {
     this.updateVideoB = this.updateVideoB.bind(this);
     this.onDeltaHover = this.onDeltaHover.bind(this);
     this.fixMinimalPairs = this.fixMinimalPairs.bind(this);
+    this.updateThreshold = this.updateThreshold.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +51,13 @@ class App extends React.Component {
     if (this.experiments.length > 0) {
       this.loadExperiment(this.experiments[0]);
     }
+  }
+
+  updateThreshold(event) {
+    const target = event.target;
+    const threshold = target.name;
+    this.setState({threshold: threshold})
+    this.loadExperiment(this.state.experiment);
   }
 
   updateExperiment(event) {
@@ -97,7 +106,6 @@ class App extends React.Component {
     const pointIndex = event.points[0].pointIndex;
     const videoC = event.points[0].data.videos[pointIndex];
     const videoCName = event.points[0].data.y[pointIndex];
-    console.log("onDeltaHover", event.points[0], event)
     this.setState({
       videoC: videoC,
       videoCName: videoCName 
@@ -115,11 +123,12 @@ class App extends React.Component {
 
         for (let i = 0; i < basics.length; i++) {
           let videoName = basics[i];
-          let video = data["videos"][videoName]
+          let video = data["videos"][videoName];
+          let classname = video["classname"];
           let classifications = [];
 
           for (let k in video.predictions) {
-            if (video.predictions[k] > 0.75) {
+            if (video.predictions[k] > this.state.threshold) {
               classifications.push(k);
             }
           }
@@ -129,7 +138,7 @@ class App extends React.Component {
           //   extendedBasics.push(`${classification} - ${videoName}`)
           //   basicsLookUp[`${classification} - ${videoName}`] = videoName;
           // }
-          let exampleName = `${classifications.join("/")} - ${i}`;
+          let exampleName = `${i} (${classname}) ${classifications.join("/")}`;
           extendedBasics.push(exampleName);
           basicsLookUp[exampleName] = videoName;
         }
@@ -213,6 +222,55 @@ class App extends React.Component {
         title={"B"}
       />;
 
+    const predictionThresholdCard = (
+      <div>
+        <div className="card-body">
+          <p className="card-text">
+            Select Class Threshold
+          </p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonThreshold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {this.state.threshold}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButtonThreshold">
+              <a
+                className={this.state.threshold == 0.5 ? "dropdown-item active" : "dropdown-item"}
+                key={0.5}
+                name={0.5}
+                onClick={this.updateThreshold}
+                checked={this.state.threshold == 0.5}
+                aria-pressed={this.state.threshold == 0.5}
+              >{0.5}</a>
+              <a
+                className={this.state.threshold == 0.75 ? "dropdown-item active" : "dropdown-item"}
+                key={0.75}
+                name={0.75}
+                onClick={this.updateThreshold}
+                checked={this.state.threshold == 0.75}
+                aria-pressed={this.state.threshold == 0.75}
+              >{0.75}</a>
+              <a
+                className={this.state.threshold == 0.9 ? "dropdown-item active" : "dropdown-item"}
+                key={0.9}
+                name={0.9}
+                onClick={this.updateThreshold}
+                checked={this.state.threshold == 0.9}
+                aria-pressed={this.state.threshold == 0.9}
+              >{0.9}</a>
+              <a
+                className={this.state.threshold == 0.95 ? "dropdown-item active" : "dropdown-item"}
+                key={0.95}
+                name={0.95}
+                onClick={this.updateThreshold}
+                checked={this.state.threshold == 0.95}
+                aria-pressed={this.state.threshold == 0.95}
+              >{0.95}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
     const videoASelected = this.state.videoA != UNSET;
     const videoBSelected = this.state.videoB != UNSET;
     const videoCSelected = this.state.videoC != UNSET;
@@ -220,7 +278,8 @@ class App extends React.Component {
     const videoAInfo = videoASelected ?  (this.state.videos[this.state.basicsLookUp[this.state.videoA]]) : null;
     const videoACard = videoASelected ?  (
       <VideoCard
-      title={`Video A: ${this.state.videoA.split(" ")[0]}`}
+      title={`Video A: ${this.state.videoA}`}
+      threshold={this.state.threshold}
       classes={this.state.classes}
         predictions={this.state.classes.map(
           classname => videoAInfo.predictions[classname]
@@ -348,6 +407,7 @@ class App extends React.Component {
               {basicsCardA}
               {basicsCardB}
               {experimentCard}
+              {predictionThresholdCard}
             </div>
           </div>
           <hr />
@@ -463,15 +523,15 @@ class VideoCard extends React.Component {
 
         let cols = []
         let padding = "3px 5px";
-        if ((classname == this.props.info.classname) & prediction > 0.75) {
+        if ((classname == this.props.info.classname) & prediction > this.props.threshold) {
           cols.push(
             <td key={index} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{classname}</td>,
             <td key={index+100} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
-        } else if ((classname == this.props.info.classname) & prediction <= 0.75) {
+        } else if ((classname == this.props.info.classname) & prediction <= this.props.threshold) {
           cols.push(
             <td key={index} style={{padding: padding,color: wrong_color}}>{classname}</td>,
             <td key={index+100} style={{padding: padding,color: wrong_color}}>{prediction.toFixed(2)}</td>)
-        } else if (prediction > 0.75) {
+        } else if (prediction > this.props.threshold) {
           cols.push(
             <td key={index} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname}</td>,
             <td key={index+100} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{prediction.toFixed(2)}</td>)
@@ -481,15 +541,15 @@ class VideoCard extends React.Component {
         }
 
         if (classname2 != null) {
-          if ((classname2 == this.props.info.classname) & prediction2 > 0.75) {
+          if ((classname2 == this.props.info.classname) & prediction2 > this.props.threshold) {
             cols.push(
               <td key={index * 1000 + 1000} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{classname2}</td>,
               <td key={index* 1000 + 100000} style={{padding: padding,color: correct_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
-          } else if ((classname2 == this.props.info.classname) & prediction2 <= 0.75) {
+          } else if ((classname2 == this.props.info.classname) & prediction2 <= this.props.threshold) {
             cols.push(
               <td key={index* 1000 + 1000} style={{padding: padding,color: wrong_color}}>{classname2}</td>,
               <td key={index* 1000 + 100000} style={{padding: padding,color: wrong_color}}>{prediction2.toFixed(2)}</td>)
-          } else if (prediction2 > 0.75) {
+          } else if (prediction2 > this.props.threshold) {
             cols.push(
               <td key={index* 1000 + 1000} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{classname2}</td>,
               <td key={index* 1000 + 100000} style={{padding: padding,color: maybe_color, fontWeight: "bold"}}>{prediction2.toFixed(2)}</td>)
@@ -502,9 +562,12 @@ class VideoCard extends React.Component {
     )
     return (
       <div className="card-body">
-          <p className="card-text" style={{width: 110, wordWrap: "normal"}}>
+        <div  style={{height: 75}}>
+        <p className="card-text" style={{width: 110, wordWrap: "normal"}}>
             {this.props.title}
           </p>
+        </div>
+
         {Video(this.props.info.video, this.props.experiment)}
         <table style={{width: 150, fontSize: "0.9rem"}}>
           {tableData}
@@ -531,7 +594,7 @@ class VideoMenu extends React.Component {
     );
     let title = this.props.video != UNSET ? this.props.video : this.props.videos[0];
     title = title.replace(".mp4", "");
-    title = title.replace("_None", "").split(" ")[0];
+    title = title.replace("_None", ""); // .split(" ")[0]
     return (
       <div>
         <div className="card-body">
